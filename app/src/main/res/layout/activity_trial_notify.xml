@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_60"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/black"
+                android:text="Δοκιμαστική Περίοδος"/>
+        </RelativeLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabMembership"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabTrail"
+                android:text="ΠΕΡΙΟΡΙΣΜΕΝΗ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabPremium"
+                android:text="ΑΠΕΡΙΟΡΙΣΤΗ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.tabs.TabLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorText2"/>
+
+        <RelativeLayout
+            android:id="@+id/linTrial"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@id/imgNext"
+                android:layout_width="@dimen/space_150"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/space_40"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_next" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/space_250"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="181dp"
+                    android:layout_height="86dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start|right"
+                    android:text="Έχεις ήδη λογαριασμό?"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="Σύνδεση"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_30"
+                android:layout_marginTop="@dimen/space_40"
+                android:layout_marginRight="@dimen/space_30"
+                android:text="Η εφαρμογή βρίσκεται σε δοκιμαστική περίοδο για 24 ώρες.  Μετά θα σταματήσει να λειτουργεί και θα πρέπει να την αγοράσετε."
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linPremium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_30"
+                    android:layout_marginTop="@dimen/space_40"
+                    android:layout_marginRight="@dimen/space_30"
+                    android:text="Ξεκλείδωσε την εφαρμογή για να μπορείς να ολοκληρώσεις το σχέδιο διατροφής σου.  Η εφαρμογή είναι δοκιμαστικά δωρεάν για 1 ημέρα.  Έπειτα έχεις την επιλογή να αγοράσεις την απλή ή την προχωρημένη έκδοση."
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <com.sysdata.widget.accordion.FancyAccordionView
+                    android:id="@+id/alarms_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_40"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:clipToPadding="false"
+                    android:descendantFocusability="beforeDescendants"
+                    android:fadingEdgeLength="0dp"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="vertical"
+                    android:splitMotionEvents="false"
+                    tools:listitem="@layout/sample_layout_collapsed">
+
+                </com.sysdata.widget.accordion.FancyAccordionView>
+
+                <CheckBox
+                    android:id="@+id/accepted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:text="Έχω διαβάσει &amp; αποδέχομαι τους όρους χρήσης." />
+
+                <ImageView
+                    android:id="@+id/imgNext2"
+                    android:layout_width="@dimen/space_150"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/space_40"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_pay_button_next" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>

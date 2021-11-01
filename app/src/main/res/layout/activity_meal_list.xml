@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/space_25"
+                android:layout_height="@dimen/space_20"
+                android:layout_marginLeft="@dimen/space_25"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
+                android:text="Προστέθηκαν"
+                android:textColor="@android:color/black"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:id="@+id/imgAddMeal2"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_40"
+                android:layout_marginStart="@dimen/space_130"
+                android:layout_marginLeft="@dimen/space_130"
+                android:layout_marginEnd="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_weight="1"
+                android:onClick="addFoodNumber"
+                android:src="@drawable/ic_add" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--    <ScrollView-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        android:fillViewport="true"-->
+<!--        android:fitsSystemWindows="true">-->
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+</LinearLayout>

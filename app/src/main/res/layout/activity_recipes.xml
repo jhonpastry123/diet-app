@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="@dimen/space_35"
+            android:layout_height="@dimen/space_35"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_30"
+            android:src="@drawable/ic_search"/>
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="@dimen/space_25"
+            android:layout_height="@dimen/space_20"
+            android:layout_marginLeft="@dimen/space_25"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_15"
+            android:layout_toRightOf="@id/imgBack"
+            android:text="Έτοιμα Γεύματα"
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorText2">
+
+    </LinearLayout>
+
+    <SearchView
+        android:id="@+id/SearchTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginRight="@dimen/space_20" >
+
+    </SearchView>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="0"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/recipes_img" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_marginRight="@dimen/space_20"
+            android:orientation="vertical">
+
+            <!--            <ImageView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/space_30"-->
+            <!--                android:layout_marginBottom="@dimen/space_20"-->
+            <!--                android:adjustViewBounds="true"-->
+            <!--                android:src="@drawable/back_2631688" />-->
+
+            <!--            <ListView-->
+            <!--                android:id="@+id/listView"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:scrollbars="horizontal" />-->
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

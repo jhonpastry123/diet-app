@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="@dimen/space_25"
+            android:layout_height="@dimen/space_20"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_15"
+            android:src="@drawable/ic_checkmark"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_15"
+            android:textSize="22sp"
+            android:layout_toRightOf="@+id/imgBack"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:text="Μετρήσεις"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorText2"/>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_30"
+            android:layout_marginRight="@dimen/space_30"
+            android:orientation="vertical">
+
+<!--weekly download-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="-25dp"
+                android:layout_marginRight="-25dp"
+                android:orientation="vertical">
+
+                <CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/CalenderViewCustom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ημερομηνία Λήξης Εφαρμογής"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:text="Η εφαρμογή λήγει:  "
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtExpire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_weight="1"
+                        android:text="02/06/2020"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/space_1"-->
+<!--                    android:gravity="bottom"-->
+<!--                    tools:visibility="gone">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgWarning"-->
+<!--                        android:layout_width="@dimen/space_30"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="@dimen/space_15"-->
+<!--                        android:adjustViewBounds="true"-->
+<!--                        android:src="@drawable/ic_download" />-->
+
+<!--                    <Spinner-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="@dimen/space_15"-->
+<!--                        android:entries="@array/listWeek"-->
+<!--                        android:gravity="center_horizontal"-->
+<!--                        android:spinnerMode="dropdown"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textSize="16sp" />-->
+<!--                    &lt;!&ndash;                android:popupBackground="@android:color/white"&ndash;&gt;-->
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Αποθήκευσε την εβδομάδα"-->
+<!--                        android:textColor="@android:color/black"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
+            </LinearLayout>
+<!--            enter height, weight-->
+
+            <LinearLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ύψος (εκατ.)"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/tallEdit"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:inputType="text"
+                            android:text="167"
+                            android:textAlignment="center"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Βάρος (κιλά):"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/weightEdit"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="97.3"
+                            android:textAlignment="center"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Ημ. Γεν.:"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/birthdayEdit"
+                            android:layout_width="@dimen/space_100"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="09/09/1967"
+                            android:textAlignment="center"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Φύλο: "
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <RadioGroup
+                            android:id="@+id/genderradioG"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/genderMan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="αρσενικό" />
+
+                            <RadioButton
+                                android:id="@+id/genderWoman"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_20"
+
+                                android:text="θηλυκό" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Περιφέρεια λαιμού (εκ.):"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/neckEdit"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Περιφέρεια μέσης (εκ.):"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/waistEdit"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Περιφέρεια γοφών (εκ.):"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/thighEdit"
+                            android:layout_width="@dimen/space_50"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:textCursorDrawable="@drawable/cursor"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Κύριο Γεύμα:"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/mealDropdown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_15"
+                            android:entries="@array/listMeal"
+                            android:gravity="center_horizontal"
+                            android:spinnerMode="dropdown"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+
+                        <!--                android:popupBackground="@android:color/white"-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Δίαιτα"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/goalDropdown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_15"
+                            android:entries="@array/listGoal"
+                            android:gravity="center_horizontal"
+                            android:spinnerMode="dropdown"
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+
+                        <!--                android:popupBackground="@android:color/white"-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_30"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/resText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Εβδομαδιαίος Στόχος Απώλειας Βάρους"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_10">
+
+                            <com.warkiz.widget.IndicatorSeekBar
+                                android:id="@+id/seekWeeklyReduce"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:isb_indicator_color="@color/colorPrimary"
+                                app:isb_indicator_text_color="@android:color/white"
+                                app:isb_indicator_text_size="18sp"
+                                app:isb_max="1500"
+                                app:isb_min="300"
+                                app:isb_only_thumb_draggable="false"
+                                app:isb_seek_smoothly="true"
+                                app:isb_show_indicator="rounded_rectangle"
+                                app:isb_show_tick_marks_type="oval"
+                                app:isb_show_tick_texts="true"
+                                app:isb_thumb_drawable="@drawable/ic_knoby"
+                                app:isb_thumb_size="@dimen/space_50"
+                                app:isb_tick_marks_color="@color/colorOrangeDark"
+                                app:isb_tick_marks_size="13dp"
+                                app:isb_tick_texts_array="@array/listWeight"
+                                app:isb_tick_texts_color="@color/colorText1"
+                                app:isb_tick_texts_size="15sp"
+                                app:isb_ticks_count="4"
+                                app:isb_track_background_color="@color/colorText2"
+                                app:isb_track_background_size="2dp"
+                                app:isb_track_progress_color="@color/colorOrangeDark"
+                                app:isb_track_progress_size="4dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Οι Μετρήσεις Μου"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Συχνότητα Εβδομαδιαίας Άσκησης"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_20"
+                    android:orientation="vertical">
+
+                    <RadioGroup
+                        android:id="@+id/settingR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_20"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_20">
+
+                        <RadioButton
+                            android:id="@+id/ex0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="   Σπάνια (0 φορές)"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/ex3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="   Λίγη (0-3 φορές)"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/ex5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="   Μέτρια (3 - 5 φορές)"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/ex7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="   Καθημερινή (5 - 7 φορές)"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/exSports"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="   Αθλητική"
+                            android:textSize="12sp" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_5"
+                        android:layout_marginBottom="@dimen/space_15"
+                        android:text="Δήλωσε το σύνολο των λεπτών που αφιερώνεις στην κάθε άσκηση ανά εβδομάδα."
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:id="@+id/linSportContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_25"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_10"
+                            android:layout_marginRight="@dimen/space_10"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+                                    <!--temp-->
+
+                                    <LinearLayout
+                                        android:id="@+id/layout1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:orientation="horizontal">
+
+                                        <Spinner
+                                            android:id="@+id/sport1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1" />
+
+                                        <EditText
+                                            android:id="@+id/min1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:ems="10"
+                                            android:gravity="center_horizontal"
+                                            android:inputType="textPersonName"
+                                            android:textCursorDrawable="@drawable/cursor" />
+
+                                        <TextView
+                                            android:id="@+id/textView3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0"
+                                            android:text="min"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/layout2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:visibility="gone">
+
+                                        <Spinner
+                                            android:id="@+id/sport2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1" />
+
+                                        <EditText
+                                            android:id="@+id/min2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:ems="10"
+                                            android:gravity="center_horizontal"
+                                            android:inputType="textPersonName"
+                                            android:textCursorDrawable="@drawable/cursor" />
+
+                                        <TextView
+                                            android:id="@+id/textView4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0"
+                                            android:text="min"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/layout3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:visibility="gone">
+
+                                        <Spinner
+                                            android:id="@+id/sport3"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1" />
+
+                                        <EditText
+                                            android:id="@+id/min3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:ems="10"
+                                            android:gravity="center_horizontal"
+                                            android:inputType="textPersonName"
+                                            android:textCursorDrawable="@drawable/cursor" />
+
+                                        <TextView
+                                            android:id="@+id/textView5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0"
+                                            android:text="min"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <!--temp end-->
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
