@@ -50,7 +50,6 @@ public class BirthdayActivity extends AppCompatActivity implements DatePickerDia
                 if(validate()){
                     PersonalData.getInstance().setBirthday(mBirthday);
                     PersonalData.getInstance().setAge(mAge);
-                    PersonalData.getInstance().setStart_date(new Date());
 
                     Intent intent = new Intent(getBaseContext(), SportActivity.class);
                     startActivity(intent);

@@ -106,7 +106,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="120dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView9"
@@ -114,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:text="Δεν έχεις λογαριασμό;"
                     android:textColor="#000000"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -123,8 +124,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="0"
                     android:text="ΕΓΓΡΑΦΗ"
-                    android:textColor="#0083E6"
-                    android:visibility="gone" />
+                    android:textColor="#0083E6" />
             </LinearLayout>
 
             <ImageButton

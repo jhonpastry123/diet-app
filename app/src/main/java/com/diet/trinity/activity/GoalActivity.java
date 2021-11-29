@@ -1,7 +1,6 @@
 package com.diet.trinity.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -37,27 +36,18 @@ private Intent intent;
 
     @Override
     public void onClick(View v) {
-        SharedPreferences sp=getSharedPreferences("Setting", MODE_PRIVATE);
-        SharedPreferences.Editor ed=sp.edit();
-
         switch (v.getId()){
             case R.id.imgLose :
                 PersonalData.getInstance().setGoal(Goal.LOSE);
-                ed.putInt("goal", 0);
                 break;
             case R.id.imgGain :
                 PersonalData.getInstance().setGoal(Goal.GAIN);
-                ed.putInt("goal", 1);
                 break;
             case R.id.imgStay :
                 PersonalData.getInstance().setGoal(Goal.STAY);
-                ed.putInt("goal", 2);
                 break;
         }
-        ed.commit();
         Intent intent = new Intent(this, WeightActivity.class);
         startActivity(intent);
     }
-
-
 }

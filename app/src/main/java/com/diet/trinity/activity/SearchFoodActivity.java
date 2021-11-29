@@ -35,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.diet.trinity.Adapter.CustomAdapter;
-import com.diet.trinity.Constants;
+import com.diet.trinity.Utility.Constants;
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.FoodDatabaseHelper;
 import com.diet.trinity.Utility.Global;

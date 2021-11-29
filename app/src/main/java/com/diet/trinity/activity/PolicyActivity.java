@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,11 +26,9 @@ public class PolicyActivity extends AppCompatActivity {
     private static final String KEY_EXPANDED_ID = "expandedId";
 
     public static final int VIEW_TYPE_1 = 1;
-    public static final int VIEW_TYPE_2 = 2;
     ImageView insta_img, facebook_img, twitter_img, q_img, trinity_img;
     TextView  qsa_txt;
 
-    private Toast mToast;
     private FancyAccordionView mRecyclerView;
     private ItemAdapter.OnItemClickedListener mListener = new ItemAdapter.OnItemClickedListener() {
         @Override

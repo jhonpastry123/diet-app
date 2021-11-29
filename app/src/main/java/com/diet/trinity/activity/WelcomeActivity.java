@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
         addEventListener();
         initView();
     }
-//
+
     private void initView(){
         mUnit = PersonalData.getInstance().getUnits();
         mPoint = PersonalData.getInstance().getPoints();
@@ -57,15 +57,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (_iconPoint.getAlpha() == 1.0f && _iconUnit.getAlpha() == 1.0f) {
                 }
                 else {
-                    if(PersonalData.getInstance().getMembership()==0) {
-                        Intent intent = new Intent(getBaseContext(), TrialNotifyActivity.class);
-                        startActivity(intent);
-                    }
-                    else
-                    {
-                        Intent intent = new Intent(getBaseContext(), DailyCaleandarActivity.class);
-                        startActivity(intent);
-                    }
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.putExtra("activity", "welcome");
+                    startActivity(intent);
                 }
             }
         });

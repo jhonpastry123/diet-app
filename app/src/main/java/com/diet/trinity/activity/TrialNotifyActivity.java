@@ -1,21 +1,19 @@
 package com.diet.trinity.activity;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.diet.trinity.Adapter.SampleCollapsedViewHolder;
 import com.diet.trinity.Adapter.SampleExpandedViewHolder;
@@ -50,13 +48,10 @@ public class TrialNotifyActivity extends AppCompatActivity {
             else {
                 switch (id) {
                     case ItemAdapter.OnItemClickedListener.ACTION_ID_COLLAPSED_VIEW:
-                        //showToast(String.format("Collapsed %s clicked!", item.getTitle()));
                         break;
                     case ItemAdapter.OnItemClickedListener.ACTION_ID_EXPANDED_VIEW:
-                        //showToast(String.format("Expanded %s clicked!", item.getTitle()));
                         break;
                     default:
-                        // do nothing
                         break;
                 }
             }

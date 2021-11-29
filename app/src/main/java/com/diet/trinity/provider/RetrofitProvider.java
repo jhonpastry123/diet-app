@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.diet.trinity.BuildConfig;
-import com.diet.trinity.Constants;
+import com.diet.trinity.Utility.Constants;
 import com.diet.trinity.R;
 import com.diet.trinity.data.api.REST;
 import com.fasterxml.jackson.databind.ObjectMapper;

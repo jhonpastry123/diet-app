@@ -22,7 +22,6 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.diet.trinity.Constants;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
 

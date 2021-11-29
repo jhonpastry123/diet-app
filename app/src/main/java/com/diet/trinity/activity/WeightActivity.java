@@ -1,7 +1,6 @@
 package com.diet.trinity.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,13 +31,6 @@ public class WeightActivity extends AppCompatActivity {
                 if(validate()){
                     PersonalData.getInstance().setWeight(mWeight);
                     PersonalData.getInstance().setInitial_weight(mWeight);
-
-                    SharedPreferences sp=getSharedPreferences("Setting", MODE_PRIVATE);
-                    SharedPreferences.Editor Ed=sp.edit();
-                    Ed.putFloat("weight", mWeight);
-                    Ed.putFloat("initial_weight", mWeight);
-                    Ed.commit();
-
                     Intent intent = new Intent(getBaseContext(), GenderActivity.class);
                     startActivity(intent);
                 }

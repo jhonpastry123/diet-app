@@ -18,10 +18,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +33,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,6 +44,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.diet.trinity.Adapter.CustomMealAdapter;
+import com.diet.trinity.MainApplication;
 import com.diet.trinity.MyNotificationPublisher;
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.BreakfastDatabaseHelper;
@@ -53,7 +56,12 @@ import com.diet.trinity.Utility.LunchDatabaseHelper;
 import com.diet.trinity.Utility.MealChooseHelper;
 import com.diet.trinity.Utility.MealDatabaseHelper;
 import com.diet.trinity.Utility.PersonalDatabaseHelper;
+import com.diet.trinity.data.api.REST;
+import com.diet.trinity.data.models.Information;
+import com.diet.trinity.data.models.User;
+import com.diet.trinity.data.models.Wrappers;
 import com.diet.trinity.model.DietMode;
+import com.diet.trinity.model.Gender;
 import com.diet.trinity.model.Goal;
 import com.diet.trinity.model.PersonalData;
 import com.github.mikephil.charting.charts.PieChart;
@@ -77,6 +85,7 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
@@ -90,12 +99,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 //--------chart------------//
 //-------pie chart---------//
@@ -166,7 +180,13 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
     }
 
     @Override
+    public void onBackPressed() {
+        Prefs.clear();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setSettings();
+        getProfile();
         get_user_id();
 
         super.onCreate(savedInstanceState);
@@ -264,6 +284,25 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         //---------pie chart--------//
         pieChartFormat();
         instance = this;
+    }
+
+    private void getProfile() {
+        REST rest = MainApplication.getContainer().get(REST.class);
+        rest.profileShow()
+                .enqueue(new Callback<Wrappers.Single<User>>() {
+
+                    @Override
+                    public void onResponse(Call<Wrappers.Single<User>> call, retrofit2.Response<Wrappers.Single<User>> response) {
+                        User user = response.body().data;
+                        Log.e( "user email", user.email + "");
+                        PersonalData.getInstance().setMembership(user.type);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Wrappers.Single<User>> call, Throwable t) {
+
+                    }
+                });
     }
 
     void pieChartFormat() {
@@ -2857,5 +2896,50 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 }
             }
         }
+    }
+
+    private void setSettings() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        REST rest = MainApplication.getContainer().get(REST.class);
+        rest.getInformation(date)
+                .enqueue(new Callback<Wrappers.Single<Information>>() {
+                    @Override
+                    public void onResponse(Call<Wrappers.Single<Information>> call, retrofit2.Response<Wrappers.Single<Information>> response) {
+                        Information information = response.body().data;
+
+                        if (information != null) {
+                            PersonalData.getInstance().setGoal(Goal.values()[information.goal]);
+                            PersonalData.getInstance().setInitial_weight(information.initial_weight);
+                            PersonalData.getInstance().setWeight(information.weight);
+                            PersonalData.getInstance().setGender(Gender.values()[information.gender]);
+                            PersonalData.getInstance().setHeight(information.height);
+                            try {
+                                PersonalData.getInstance().setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(information.birthday));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            PersonalData.getInstance().setGymType(information.gym_type);
+                            PersonalData.getInstance().setSportType1(information.sport_type1);
+                            PersonalData.getInstance().setSportType2(information.sport_type2);
+                            PersonalData.getInstance().setSportType3(information.sport_type3);
+                            PersonalData.getInstance().setSportTime1(information.sport_time1);
+                            PersonalData.getInstance().setSportTime2(information.sport_time2);
+                            PersonalData.getInstance().setSportTime3(information.sport_time3);
+                            PersonalData.getInstance().setGoal_weight(information.goal_weight);
+                            PersonalData.getInstance().setWeekly_reduce(information.weekly_goal);
+                            PersonalData.getInstance().setDietMode(DietMode.values()[information.diet_mode]);
+                        }
+                        else {
+                            Toast.makeText(DailyCaleandarActivity.this, getResources().getString(R.string.offline_text), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Wrappers.Single<Information>> call, Throwable t) {
+
+                    }
+                });
     }
 }

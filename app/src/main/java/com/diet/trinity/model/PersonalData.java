@@ -22,6 +22,7 @@ public class PersonalData {
     private int points, units;
     private DietMode dietMode;
     private int membership;
+    private int sport_type1 = 0, sport_type2 = 0, sport_type3 = 0, sport_time1 = 0, sport_time2 = 0, sport_time3 = 0;
 
     private long trial_time;
     private long purchase_time;
@@ -136,6 +137,32 @@ public class PersonalData {
         this.gymType = gymType;
     }
 
+    public void setSportType1(int type) {
+        this.sport_type1 = type;
+    }
+    public void setSportType2(int type) {
+        this.sport_type2 = type;
+    }
+    public void setSportType3(int type) {
+        this.sport_type3 = type;
+    }
+    public void setSportTime1(int min) {
+        this.sport_time1 = min;
+    }
+    public void setSportTime2(int min) {
+        this.sport_time2 = min;
+    }
+    public void setSportTime3(int min) {
+        this.sport_time3 = min;
+    }
+
+    public int getSportType1() { return sport_type1;}
+    public int getSportType2() { return sport_type2;}
+    public int getSportType3() { return sport_type3;}
+    public int getSportTime1() { return sport_time1;}
+    public int getSportTime2() { return sport_time2;}
+    public int getSportTime3() { return sport_time3;}
+
     public int[] getGymDurationPerWeek() {
         return gymDurationPerWeek;
     }
@@ -177,9 +204,13 @@ public class PersonalData {
 
     public float getTotal_exercise() { return  total_exercise; }
 
+
+
     public int getUnits() {
 
         float BMR;
+        float weight;
+        weight = this.weight;
         if (getGoal() == Goal.LOSE){
             if(getBMI().value>=29.9 && getBMI().value <=40)
                 weight = ideal_weight+((weight - ideal_weight))/4;

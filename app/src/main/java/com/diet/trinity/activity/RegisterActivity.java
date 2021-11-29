@@ -2,16 +2,12 @@ package com.diet.trinity.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.opengl.Visibility;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,34 +15,33 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.diet.trinity.Utility.Common;
+import com.diet.trinity.Utility.Constants;
+import com.diet.trinity.Utility.Global;
+import com.diet.trinity.data.api.REST;
+import com.diet.trinity.data.models.Token;
 import com.diet.trinity.model.PersonalData;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText usernameE, useremailE, userpassE, userconfirmE;
-    String result, useremail, userpass, userconfirm, username;
+    EditText etEmail, etPass;
+    String stEmail, stPass;
     ImageButton register_btn;
     ProgressDialog mProgressDialog;
     ImageView   img_back;
 
-    String url, keytoken;
     LinearLayout goLogin;
-    RequestQueue queue;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView already_account, passWarning;
     @Override
@@ -55,8 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         register_btn = findViewById(R.id.RegisterButton);
-        useremailE = findViewById(R.id.EmailAddress);
-        userpassE = findViewById(R.id.Password);
+        etEmail = findViewById(R.id.EmailAddress);
+        etPass = findViewById(R.id.Password);
         already_account = findViewById(R.id.alreadyaccount);
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        userpassE.addTextChangedListener(new TextWatcher() {
+        etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -90,7 +85,26 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String user_pass = userpassE.getText().toString();
+                if (already_account.getVisibility() == View.VISIBLE) {
+                    already_account.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etPass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String user_pass = etPass.getText().toString();
 
                 if(user_pass.length()>=6)
                 {
@@ -110,138 +124,117 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void signupProcessing() {
+        stEmail = etEmail.getText().toString();
+        stPass = etPass.getText().toString();
 
-
-        userpass = userpassE.getText().toString();
-        useremail = useremailE.getText().toString();
-
-        if (TextUtils.isEmpty(userpass)) {
+        if (TextUtils.isEmpty(stEmail)) {
+            Toast.makeText(RegisterActivity.this, "User Email Field is Empty!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (TextUtils.isEmpty(stPass)) {
             Toast.makeText(RegisterActivity.this, "User password Field is Empty!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (TextUtils.isEmpty(useremail)) {
-            Toast.makeText(RegisterActivity.this, "User Email Field is Empty!", Toast.LENGTH_SHORT).show();
-            return;
+        else if (!(stEmail.matches(emailPattern))) {
+            Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
         }
         else{
-            if (!(useremail.matches(emailPattern)))
-            {
-                Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                if (!(TextUtils.isEmpty(userpass)))
-                {
-                    RegisterUser(userpass, useremail);
-                }
-            }
+            int type = 0;
+            RegisterUser(stEmail, stPass, type);
         }
     }
 
-    private void RegisterUser(final String userpassT,  final String useremailT) {
+    private void RegisterUser(final String email,  final String pass, final int type) {
         mProgressDialog = new ProgressDialog(RegisterActivity.this);
         mProgressDialog.setTitle("SignUp...");
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.show();
 
-        userpassE.setEnabled(false);
-        useremailE.setEnabled(false);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
 
-        url = Common.getInstance().getRegisterUrl();
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        REST rest = MainApplication.getContainer().get(REST.class);
+        rest.register(stEmail, stPass, type, date)
+                .enqueue(new Callback<Token>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(Call<Token> call, Response<Token> response) {
                         mProgressDialog.dismiss();
-                        JSONObject jsonObject = null;
-                        try {
-                            jsonObject = new JSONObject(response);
-                            result = jsonObject.getString("success");
-                            if (result.equals("true")){
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                intent.putExtra("activity", "register");
-                                startActivity(intent);
-                                finish();
-                            } else {
+
+                        Token result = response.body();
+                        if (result != null) {
+                            if (result.success == true) {
+                                String token = result.token;
+                                Prefs.putString(Constants.PREF_SERVER_TOKEN, token);
+                                Global.token = token;
+                                int user_id = result.id;
+                                saveUserSetting(user_id);
                             }
-                            already_account.setVisibility(View.INVISIBLE);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            else {
+                                already_account.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else {
+                            Toast.makeText(RegisterActivity.this, getResources().getString(R.string.offline_text), Toast.LENGTH_LONG).show();
                         }
                     }
-                },
-                new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        already_account.setVisibility(View.VISIBLE);
+                    public void onFailure(Call<Token> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, getResources().getString(R.string.offline_text), Toast.LENGTH_LONG).show();
+                        mProgressDialog.dismiss();
                     }
-                }){
-
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<String, String>();
-                int gender = 0;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String birthday = dateFormat.format(PersonalData.getInstance().getBirthday());
-                String start_date = dateFormat.format(PersonalData.getInstance().getStart_date());
-                int membership = PersonalData.getInstance().getMembership();
-                if(String.valueOf(PersonalData.getInstance().getGender()).equals("MALE")){
-                    gender = 1;
-                }else {
-                    gender = 2;
-                }
-
-                int goal = 0;
-                switch (String.valueOf(PersonalData.getInstance().getGoal())) {
-                    case "LOSE" :
-                        goal = 1;
-                        break;
-                    case "GAIN" :
-                        goal = 2;
-                        break;
-                    case "STAY" :
-                        goal = 3;
-                }
-
-                int dietMode = 0;
-                switch (String.valueOf(PersonalData.getInstance().getDietMode())) {
-                    case "POINT" :
-                        dietMode = 1;
-                        break;
-                    case "UNIT" :
-                        dietMode = 2;
-                        break;
-                }
-                params.put("email", useremailT);
-                params.put("password", userpassT);
-                params.put("c_password", userpassT);
-
-                params.put("type", String.valueOf(membership));
-                params.put("goal", String.valueOf(goal));
-                params.put("weight", String.valueOf(PersonalData.getInstance().getWeight()));
-                params.put("initial_weight", String.valueOf(PersonalData.getInstance().getInitial_weight()));
-                params.put("gender", String.valueOf(gender));
-                params.put("height", String.valueOf(PersonalData.getInstance().getHeight()));
-                params.put("birthday", birthday);
-                params.put("age", String.valueOf(PersonalData.getInstance().getAge()));
-                params.put("start_date", start_date);
-                params.put("gymType", String.valueOf(PersonalData.getInstance().getGymType()));
-                params.put("total_exercise", String.valueOf(PersonalData.getInstance().getTotal_exercise()));
-                params.put("goal_weight", String.valueOf(PersonalData.getInstance().getGoal_weight()));
-                params.put("weekly_reduce", String.valueOf(PersonalData.getInstance().getWeekly_reduce()));
-                params.put("dietMode", String.valueOf(dietMode));
-
-                System.out.println("using entrySet and toString");
-                for (Map.Entry<String, String> entry : params.entrySet()) {
-                    System.out.println(entry);
-                }
-                System.out.println();
-
-                return params;
-            }
-        };
-        queue = Volley.newRequestQueue(RegisterActivity.this);
-        queue.add(postRequest);
+                });
     }
+
+    private void saveUserSetting(int user_id) {
+        int iGoal=0, iGender=0, iDietMode=0;
+        iGoal = PersonalData.getInstance().getGoal().ordinal();
+
+        float initial_weight = PersonalData.getInstance().getInitial_weight();
+        float weight = PersonalData.getInstance().getWeight();
+
+        iGender = PersonalData.getInstance().getGender().ordinal();
+        float height = PersonalData.getInstance().getHeight();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String birthday = dateFormat.format(PersonalData.getInstance().getBirthday());
+        int gym_type = PersonalData.getInstance().getGymType();
+        int sport_type1 = PersonalData.getInstance().getSportType1();
+        int sport_type2 = PersonalData.getInstance().getSportType2();
+        int sport_type3 = PersonalData.getInstance().getSportType3();
+        int sport_time1 = PersonalData.getInstance().getSportTime1();
+        int sport_time2 = PersonalData.getInstance().getSportTime2();
+        int sport_time3 = PersonalData.getInstance().getSportTime3();
+
+        float goal_weight = PersonalData.getInstance().getGoal_weight();
+        float weekly_goal = PersonalData.getInstance().getWeekly_reduce();
+
+        iDietMode = PersonalData.getInstance().getDietMode().ordinal();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+
+        Log.e("weight", weight + "");
+
+        REST rest = MainApplication.getContainer().get(REST.class);
+        rest.InformationStore(user_id, iGoal, initial_weight, weight, iGender, height, birthday, gym_type, sport_type1, sport_type2, sport_type3, sport_time1, sport_time2, sport_time3, goal_weight, weekly_goal, iDietMode, date)
+                .enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        Boolean result = response.body();
+                        Log.e("result", result + "");
+                        if (result == true) {
+                            Intent intent = new Intent(RegisterActivity.this, DailyCaleandarActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+
+                    }
+                });
+    }
+
 }

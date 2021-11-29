@@ -1,7 +1,5 @@
 package com.diet.trinity.model;
 
-import com.diet.trinity.Common;
-
 public class User {
     int mId;
     String mUsername;
@@ -35,9 +33,6 @@ public class User {
         return mName;
     }
 
-    public String getmAvatar() {
-        return Common.getInstance().getBaseURL()+mAvatar;
-    }
 
     public String getmEmail() {
         return mEmail;
