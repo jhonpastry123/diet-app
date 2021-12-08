@@ -1,6 +1,7 @@
-package com.diet.trinity.model;
+package com.diet.trinity.data.common;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.diet.trinity.Utility.Global;
 import com.google.gson.Gson;
@@ -206,6 +207,7 @@ public class PersonalData {
 
         float BMR;
         if (getGoal() == Goal.LOSE){
+
             if(getBMI().value>=29.9 && getBMI().value <=40)
                 weight = ideal_weight+(weight - ideal_weight)/4;
 
@@ -228,7 +230,6 @@ public class PersonalData {
             AMR = AMR - weekly_reduce;
 
             units = Math.round(AMR / 100);
-
 
             Global.bmr = Math.round(BMR);
         }

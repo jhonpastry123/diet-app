@@ -19,7 +19,7 @@ import com.diet.trinity.Adapter.SampleCollapsedViewHolder;
 import com.diet.trinity.Adapter.SampleExpandedViewHolder;
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.TrialTimeHelper;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 import com.diet.trinity.model.SampleItem;
 import com.google.android.material.tabs.TabLayout;
 import com.sysdata.widget.accordion.ExpandableItemHolder;

@@ -22,8 +22,8 @@ import com.diet.trinity.R;
 import com.diet.trinity.data.api.REST;
 import com.diet.trinity.data.models.Information;
 import com.diet.trinity.data.models.Wrappers;
-import com.diet.trinity.model.Goal;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.Goal;
+import com.diet.trinity.data.common.PersonalData;
 import com.warkiz.widget.IndicatorSeekBar;
 
 import java.text.SimpleDateFormat;

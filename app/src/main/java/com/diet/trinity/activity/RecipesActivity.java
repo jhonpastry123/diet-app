@@ -22,8 +22,8 @@ import com.diet.trinity.data.api.REST;
 import com.diet.trinity.data.models.Category;
 import com.diet.trinity.data.models.Recipe;
 import com.diet.trinity.data.models.Wrappers;
-import com.diet.trinity.model.DietMode;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.DietMode;
+import com.diet.trinity.data.common.PersonalData;
 import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;

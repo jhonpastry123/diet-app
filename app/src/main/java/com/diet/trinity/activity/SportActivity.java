@@ -20,7 +20,7 @@ import com.diet.trinity.R;
 import com.diet.trinity.data.api.REST;
 import com.diet.trinity.data.models.Sport;
 import com.diet.trinity.data.models.Wrappers;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

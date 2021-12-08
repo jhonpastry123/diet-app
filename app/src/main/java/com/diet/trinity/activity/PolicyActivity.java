@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.diet.trinity.Adapter.SampleCollapsedViewHolder;
 import com.diet.trinity.Adapter.SampleExpandedViewHolder;
 import com.diet.trinity.R;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 import com.diet.trinity.model.SampleItem;
 import com.sysdata.widget.accordion.ExpandableItemHolder;
 import com.sysdata.widget.accordion.FancyAccordionView;

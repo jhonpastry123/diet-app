@@ -9,7 +9,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.diet.trinity.R;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 
 public class HeightActivity extends AppCompatActivity {
 

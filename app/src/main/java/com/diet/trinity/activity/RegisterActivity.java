@@ -23,7 +23,7 @@ import com.diet.trinity.Utility.Constants;
 import com.diet.trinity.Utility.Global;
 import com.diet.trinity.data.api.REST;
 import com.diet.trinity.data.models.Token;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.SimpleDateFormat;

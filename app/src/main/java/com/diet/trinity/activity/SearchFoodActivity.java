@@ -49,9 +49,9 @@ import com.diet.trinity.data.datasources.RecipeDataSource;
 import com.diet.trinity.data.models.FoodItem;
 import com.diet.trinity.data.models.FoodValue;
 import com.diet.trinity.data.models.Recipe;
-import com.diet.trinity.model.Goal;
+import com.diet.trinity.data.common.Goal;
 import com.diet.trinity.model.Listmodel;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 
 import org.json.JSONException;
 

@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.diet.trinity.R;
-import com.diet.trinity.model.DietMode;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.DietMode;
+import com.diet.trinity.data.common.PersonalData;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -26,7 +26,6 @@ public class WelcomeActivity extends AppCompatActivity {
         _point = findViewById(R.id.txtPoint);
         _unit = findViewById(R.id.txtUnit);
         _warning = findViewById(R.id.unit_warning_txt);
-
 
         addEventListener();
         initView();

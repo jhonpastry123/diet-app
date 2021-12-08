@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.PurchaseTimeHelper;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.PersonalData;
 
 import java.util.Calendar;
 

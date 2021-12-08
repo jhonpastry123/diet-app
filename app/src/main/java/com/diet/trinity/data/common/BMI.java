@@ -1,4 +1,4 @@
-package com.diet.trinity.model;
+package com.diet.trinity.data.common;
 
 public class BMI {
     float value;

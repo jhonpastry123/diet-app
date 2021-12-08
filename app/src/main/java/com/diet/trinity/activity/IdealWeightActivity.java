@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.diet.trinity.R;
-import com.diet.trinity.model.Goal;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.Goal;
+import com.diet.trinity.data.common.PersonalData;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
@@ -48,6 +48,7 @@ public class IdealWeightActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        PersonalData.getInstance().getIdeal_weight();
         mIdealWeight = (int) Math.round(Math.pow(PersonalData.getInstance().getHeight(), 2) * 18.5 / 10000);
         mIdealMaxWeight = (int) Math.round(Math.pow(PersonalData.getInstance().getHeight(), 2) * 24.9 / 10000);
         TextView _idealWeight = findViewById(R.id.txtIdealWeight);

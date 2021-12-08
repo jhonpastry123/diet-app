@@ -1,4 +1,4 @@
-package com.diet.trinity.model;
+package com.diet.trinity.data.common;
 
 public enum Gender {
     MALE, FEMALE

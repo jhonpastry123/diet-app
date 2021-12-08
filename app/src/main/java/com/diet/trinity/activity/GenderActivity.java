@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.diet.trinity.R;
-import com.diet.trinity.model.Gender;
-import com.diet.trinity.model.PersonalData;
+import com.diet.trinity.data.common.Gender;
+import com.diet.trinity.data.common.PersonalData;
 
 public class GenderActivity extends AppCompatActivity {
 
