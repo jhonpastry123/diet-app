@@ -27,8 +27,6 @@ import com.diet.trinity.model.PersonalData;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -149,12 +147,8 @@ public class RegisterActivity extends AppCompatActivity {
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.show();
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String date = dtf.format(now);
-
         REST rest = MainApplication.getContainer().get(REST.class);
-        rest.register(stEmail, stPass, type, date)
+        rest.register(stEmail, stPass, type)
                 .enqueue(new Callback<Token>() {
                     @Override
                     public void onResponse(Call<Token> call, Response<Token> response) {
@@ -210,14 +204,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         iDietMode = PersonalData.getInstance().getDietMode().ordinal();
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String date = dtf.format(now);
-
-        Log.e("weight", weight + "");
-
         REST rest = MainApplication.getContainer().get(REST.class);
-        rest.InformationStore(user_id, iGoal, initial_weight, weight, iGender, height, birthday, gym_type, sport_type1, sport_type2, sport_type3, sport_time1, sport_time2, sport_time3, goal_weight, weekly_goal, iDietMode, date)
+        rest.InformationStore(user_id, iGoal, initial_weight, weight, iGender, height, birthday, gym_type, sport_type1, sport_type2, sport_type3, sport_time1, sport_time2, sport_time3, goal_weight, weekly_goal, iDietMode)
                 .enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {

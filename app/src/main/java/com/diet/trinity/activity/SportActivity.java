@@ -40,9 +40,10 @@ public class SportActivity extends AppCompatActivity {
     int mGym = -1;
     String sport_name1, sport_name2, sport_name3;
     int sport_type1 = 0, sport_type2 = 0, sport_type3 = 0, sport_time1 = 0, sport_time2 = 0, sport_time3 = 0;
+    float coefficient1 = 0, coefficient2 = 0, coefficient3 = 0;
     EditText txt1, txt2, txt3;
     LinearLayout layout2, layout3;
-    Map<String, Double> element_data = new HashMap<String, Double>();
+    Map<Integer, Double> element_data = new HashMap<Integer, Double>();
     Map<String, Integer> element_id_data = new HashMap<String, Integer>();
 
     ArrayList<String> dropList = new ArrayList<String>();
@@ -79,7 +80,7 @@ public class SportActivity extends AppCompatActivity {
                         for (int i = 0; i < sports.size(); i ++) {
                             Sport sport = sports.get(i);
                             dropList.add(sport.name);
-                            element_data.put(sport.name, sport.coefficient);
+                            element_data.put(sport.id, sport.coefficient);
                             element_id_data.put(sport.name, sport.id);
                         }
                     }
@@ -105,6 +106,14 @@ public class SportActivity extends AppCompatActivity {
                             sport_time1 = Integer.parseInt(txt1.getText().toString());
                             sport_time2 = Integer.parseInt(txt2.getText().toString());
                             sport_time3 = Integer.parseInt(txt3.getText().toString());
+                            coefficient1 = element_data.get(sport_type1).floatValue();
+                            coefficient2 = element_data.get(sport_type2).floatValue();
+                            coefficient3 = element_data.get(sport_type3).floatValue();
+
+                            float weight = PersonalData.getInstance().getWeight();
+                            float total = weight * (coefficient1 * sport_time1 + coefficient2 * sport_time2 + coefficient3 * sport_time3);
+                            PersonalData.getInstance().setTotal_exercise(total);
+
                         } catch (Exception e) {};
                     }
 

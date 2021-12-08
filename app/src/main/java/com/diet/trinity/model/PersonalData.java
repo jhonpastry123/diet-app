@@ -202,18 +202,12 @@ public class PersonalData {
         this.total_exercise = total_exercise;
     }
 
-    public float getTotal_exercise() { return  total_exercise; }
-
-
-
     public int getUnits() {
 
         float BMR;
-        float weight;
-        weight = this.weight;
         if (getGoal() == Goal.LOSE){
             if(getBMI().value>=29.9 && getBMI().value <=40)
-                weight = ideal_weight+((weight - ideal_weight))/4;
+                weight = ideal_weight+(weight - ideal_weight)/4;
 
             if(gender == Gender.MALE){
                 BMR = (int ) (88 + (13.4 * weight) + (4.8 * height) - (5.7 * age));
@@ -368,12 +362,5 @@ public class PersonalData {
             BMIState = "Παχύσαρκος (3ου βαθμού)";
         }
         return new BMI(bmi, BMIState);
-    }
-    private int roundInt(float num){
-        int num_int  = Math.round(num);
-        if((num - num_int)>=0.5)
-            return num_int+1;
-        else
-            return num_int;
     }
 }

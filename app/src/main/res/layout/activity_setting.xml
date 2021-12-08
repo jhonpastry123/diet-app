@@ -213,6 +213,7 @@
                             android:id="@+id/birthdayEdit"
                             android:layout_width="@dimen/space_100"
                             android:layout_height="wrap_content"
+                            android:focusable="false"
                             android:gravity="center_horizontal"
                             android:text="09/09/1967"
                             android:textAlignment="center"

@@ -34,8 +34,7 @@ public interface REST {
     Call<Token> register(
             @Field("email") String email,
             @Field("password") String password,
-            @Field("type") int type,
-            @Field("purchase_time") String purchase_time
+            @Field("type") int type
     );
 
     @Headers("Accept: application/json")
@@ -57,8 +56,7 @@ public interface REST {
             @Query("sport_time3") int sport_time3,
             @Query("goal_weight") float goal_weight,
             @Query("weekly_goal") float weekly_goal,
-            @Query("diet_mode") int diet_mode,
-            @Query("purchase_time") String purchase_time
+            @Query("diet_mode") int diet_mode
     );
 
     @Headers("Accept: application/json")

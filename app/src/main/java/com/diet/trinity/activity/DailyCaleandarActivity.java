@@ -185,12 +185,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_daily_caleandar);
         setSettings();
         getProfile();
         get_user_id();
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daily_caleandar);
 
         mCalendar = Calendar.getInstance();
         Date date = mCalendar.getTime();
@@ -227,17 +226,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         ActivityCompat.requestPermissions(DailyCaleandarActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         addEventListener();
-
-        try {
-            initView();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            initMeal();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         //----- timer ----------//
         SetTimer();
@@ -2930,6 +2918,18 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                             PersonalData.getInstance().setGoal_weight(information.goal_weight);
                             PersonalData.getInstance().setWeekly_reduce(information.weekly_goal);
                             PersonalData.getInstance().setDietMode(DietMode.values()[information.diet_mode]);
+
+
+                            try {
+                                initView();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                initMeal();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
                         else {
                             Toast.makeText(DailyCaleandarActivity.this, getResources().getString(R.string.offline_text), Toast.LENGTH_LONG).show();

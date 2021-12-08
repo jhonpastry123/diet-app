@@ -1,6 +1,5 @@
 package com.diet.trinity.activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -55,12 +54,5 @@ public class PaymentDetails extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
-
-    public void insertPurchase(String purchase_time, String purchase_type){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(PurchaseTimeHelper.COL_2, purchase_time);
-        contentValues.put(PurchaseTimeHelper.COL_3, purchase_type);
-        db_purchase.insert(PurchaseTimeHelper.TABLE_NAME,null,contentValues);
     }
 }
