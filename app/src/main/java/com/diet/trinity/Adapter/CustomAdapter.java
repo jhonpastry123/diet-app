@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.diet.trinity.R;
-import com.diet.trinity.activity.RecipieSingleActivity;
+import com.diet.trinity.activity.RecipeSingleActivity;
 import com.diet.trinity.model.Listmodel;
 
 import org.json.JSONException;
@@ -86,7 +86,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, RecipieSingleActivity.class);
+                    Intent intent = new Intent(context, RecipeSingleActivity.class);
                     intent.putExtra("foodID", v.getId());
                     context.startActivity(intent);
                 }

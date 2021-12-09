@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.diet.trinity.R;
-import com.diet.trinity.activity.RecipieSingleActivity;
+import com.diet.trinity.activity.RecipeSingleActivity;
 import com.diet.trinity.model.Recipe;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder._card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, RecipieSingleActivity.class);
+                Intent intent=new Intent(context, RecipeSingleActivity.class);
                 context.startActivity(intent);
             }
         });

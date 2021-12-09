@@ -150,7 +150,7 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
                                                 card.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
-                                                        Intent intent=new Intent(RecipesActivity.this, RecipieSingleActivity.class);
+                                                        Intent intent=new Intent(RecipesActivity.this, RecipeSingleActivity.class);
                                                         intent.putExtra("foodID", view.getId());
                                                         startActivity(intent);
                                                     }
@@ -205,10 +205,10 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
                                                 pointText.setTextColor(getResources().getColor(R.color.colorText1));
                                                 pointText.setTextSize(7);
                                                 if (PersonalData.getInstance().getDietMode() == DietMode.POINT) {
-                                                    pointText.setText(String.format(Locale.US, "%.1f", 10.2)+" points");
+                                                    pointText.setText(String.format(Locale.US, "%.1f", recipe.points)+" points");
                                                 }
                                                 else {
-                                                    pointText.setText(String.format(Locale.US, "%.1f", 8.5)+" units");
+                                                    pointText.setText(String.format(Locale.US, "%.1f", recipe.units)+" units");
                                                 }
                                                 itemlayout.addView(pointText);
                                             }

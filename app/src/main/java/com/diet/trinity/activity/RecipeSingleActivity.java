@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class RecipieSingleActivity extends AppCompatActivity{
+public class RecipeSingleActivity extends AppCompatActivity{
     Integer food_id=0;
     ImageView foodImage, pdfDownload;
     TextView description_txt, title_txt, points_txt, ingredient_txt, ingredient_grams_txt, meal_label;
@@ -89,7 +89,7 @@ public class RecipieSingleActivity extends AppCompatActivity{
         openHelper_meal = new MealDatabaseHelper(this);
         db_meal = openHelper_meal.getWritableDatabase();
         Global.timing = "breakfast";
-        ActivityCompat.requestPermissions(RecipieSingleActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(RecipeSingleActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         //-----screen shot--------//
         scrollView = findViewById(R.id.rootView);
@@ -196,7 +196,7 @@ public class RecipieSingleActivity extends AppCompatActivity{
         findViewById(R.id.imgBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecipieSingleActivity.this, RecipesActivity.class);
+                Intent intent = new Intent(RecipeSingleActivity.this, RecipesActivity.class);
                 startActivity(intent);
             }
         });

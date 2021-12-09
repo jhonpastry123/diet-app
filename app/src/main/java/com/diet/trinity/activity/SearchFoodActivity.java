@@ -503,7 +503,7 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
             holder.title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(SearchFoodActivity.this, RecipieSingleActivity.class);
+                    Intent intent=new Intent(SearchFoodActivity.this, RecipeSingleActivity.class);
                     intent.putExtra("foodID", v.getId());
                     startActivity(intent);
                 }
