@@ -205,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
         iDietMode = PersonalData.getInstance().getDietMode().ordinal();
 
         REST rest = MainApplication.getContainer().get(REST.class);
-        rest.InformationStore(user_id, iGoal, initial_weight, weight, iGender, height, birthday, gym_type, sport_type1, sport_type2, sport_type3, sport_time1, sport_time2, sport_time3, goal_weight, weekly_goal, iDietMode)
+        rest.InformationStore(user_id, iGoal, initial_weight, weight, iGender, height, birthday, gym_type, sport_type1, sport_type2, sport_type3, sport_time1, sport_time2, sport_time3, goal_weight, weekly_goal, iDietMode, 0, 0, 0)
                 .enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {

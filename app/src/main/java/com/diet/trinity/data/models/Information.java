@@ -22,6 +22,9 @@ public class Information implements Parcelable {
     public float goal_weight;
     public float weekly_goal;
     public int diet_mode;
+    public float neck;
+    public float waist;
+    public float thigh;
     public String date;
 
     public Information() {
@@ -48,6 +51,9 @@ public class Information implements Parcelable {
         weekly_goal = in.readFloat();
         diet_mode = in.readInt();
         date = in.readString();
+        neck = in.readFloat();
+        waist = in.readFloat();
+        thigh = in.readFloat();
     }
 
     @Override
@@ -71,6 +77,9 @@ public class Information implements Parcelable {
         dest.writeFloat(weekly_goal);
         dest.writeInt(diet_mode);
         dest.writeString(date);
+        dest.writeFloat(neck);
+        dest.writeFloat(waist);
+        dest.writeFloat(thigh);
     }
 
     @Override

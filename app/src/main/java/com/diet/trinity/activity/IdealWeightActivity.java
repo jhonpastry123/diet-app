@@ -107,10 +107,10 @@ public class IdealWeightActivity extends AppCompatActivity {
                         mWeeklyReduce = 300;
                         break;
                     case 1:
-                        mWeeklyReduce = 600;
+                        mWeeklyReduce = 700;
                         break;
                     case 2:
-                        mWeeklyReduce = 1000;
+                        mWeeklyReduce = 1100;
                         break;
                     case 3:
                         mWeeklyReduce = 1500;

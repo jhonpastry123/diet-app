@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.Constants;
+import com.diet.trinity.Utility.Global;
 import com.diet.trinity.data.api.REST;
 import com.diet.trinity.data.models.Token;
 import com.pixplicity.easyprefs.library.Prefs;

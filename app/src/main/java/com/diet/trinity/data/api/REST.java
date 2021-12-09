@@ -56,7 +56,10 @@ public interface REST {
             @Query("sport_time3") int sport_time3,
             @Query("goal_weight") float goal_weight,
             @Query("weekly_goal") float weekly_goal,
-            @Query("diet_mode") int diet_mode
+            @Query("diet_mode") int diet_mode,
+            @Query("neck") float neck,
+            @Query("waist") float waist,
+            @Query("thigh") float thigh
     );
 
     @Headers("Accept: application/json")
