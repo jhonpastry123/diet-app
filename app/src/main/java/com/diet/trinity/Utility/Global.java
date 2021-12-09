@@ -58,7 +58,8 @@ public class Global {
     static public float snack_dinner_total = 0;
 
     static public String timing="";
-    static public String user_id="";
+    static public int timing_id=0;
+    static public int user_id=0;
     static public String token = "";
 
     //--------BMR---------//

@@ -17,6 +17,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface REST {
@@ -79,10 +80,16 @@ public interface REST {
             @Query("q") @Nullable String q
     );
 
+    @GET("fooditems/{id}")
+    Call<Wrappers.Single<FoodItem>> FoodItemShow(
+            @Path("id") int id
+    );
+
     @GET("recipes")
     Call<Wrappers.Paginated<Recipe>> RecipesIndex(
             @Query("page") int page,
-            @Query("q") @Nullable String q
+            @Query("q") @Nullable String q,
+            @Query("category") @Nullable int category
     );
 
     @GET("recipes/list")
@@ -96,4 +103,14 @@ public interface REST {
 
     @GET("sports")
     Call<Wrappers.Collection<Sport>> SportsIndex();
+
+    @Headers("Accept: application/json")
+    @POST("meals")
+    Call<Boolean> MealStore(
+            @Query("customer_id") int id,
+            @Query("food_id") int food_id,
+            @Query("recipe_id") int recipe_id,
+            @Query("gram") float gram,
+            @Query("timing_id") int timing_id //[1=>'breakfast', 2=>'lunch', 3=>'dinner', 4=>'breakfast_snack', 5=>'lunch_snack', 6=>'dinner_snack']
+    );
 }

@@ -3,9 +3,6 @@ package com.diet.trinity.data.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-import java.util.List;
-
 public class Recipe implements Parcelable {
 
     public int id;
@@ -13,8 +10,9 @@ public class Recipe implements Parcelable {
     public int categories_id;
     public String description;
     public String image;
-    public List<Category> category_name;
-    public List<FoodValue> foodvalues;
+    public float units;
+    public float points;
+    public float amount;
 
     public Recipe() {
     }
@@ -25,8 +23,9 @@ public class Recipe implements Parcelable {
         categories_id = in.readInt();
         description = in.readString();
         image = in.readString();
-        category_name = in.createTypedArrayList(Category.CREATOR);
-        foodvalues = in.createTypedArrayList(FoodValue.CREATOR);
+        units = in.readFloat();
+        points = in.readFloat();
+        amount = in.readFloat();
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -53,7 +52,8 @@ public class Recipe implements Parcelable {
         dest.writeInt(categories_id);
         dest.writeString(description);
         dest.writeString(image);
-        dest.writeTypedList(category_name);
-        dest.writeTypedList(foodvalues);
+        dest.writeFloat(units);
+        dest.writeFloat(points);
+        dest.writeFloat(amount);
     }
 }

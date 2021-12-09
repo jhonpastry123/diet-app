@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -57,13 +56,13 @@ import com.diet.trinity.Utility.MealChooseHelper;
 import com.diet.trinity.Utility.MealDatabaseHelper;
 import com.diet.trinity.Utility.PersonalDatabaseHelper;
 import com.diet.trinity.data.api.REST;
-import com.diet.trinity.data.models.Information;
-import com.diet.trinity.data.models.User;
-import com.diet.trinity.data.models.Wrappers;
 import com.diet.trinity.data.common.DietMode;
 import com.diet.trinity.data.common.Gender;
 import com.diet.trinity.data.common.Goal;
 import com.diet.trinity.data.common.PersonalData;
+import com.diet.trinity.data.models.Information;
+import com.diet.trinity.data.models.User;
+import com.diet.trinity.data.models.Wrappers;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -282,7 +281,7 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                     @Override
                     public void onResponse(Call<Wrappers.Single<User>> call, retrofit2.Response<Wrappers.Single<User>> response) {
                         User user = response.body().data;
-                        Log.e( "user email", user.email + "");
+                        Global.user_id = user.id;
                         PersonalData.getInstance().setMembership(user.type);
                     }
 
@@ -437,7 +436,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    Global.user_id = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_4));
                     Global.token = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_5));
                 } while (cursor.moveToNext());
             }
@@ -991,70 +989,82 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
             {
                 showMeal_List();
                 Global.timing = "breakfast";
+                Global.timing_id = 1;
             }
                 break;
             case R.id.linCheckedLunch:
             {
                 showMeal_List();
                 Global.timing = "lunch";
+                Global.timing_id = 2;
             }
             break;
             case R.id.linCheckedDinner:
             {
                 showMeal_List();
                 Global.timing = "dinner";
+                Global.timing_id = 3;
             }
             break;
             case R.id.linCheckedSnackBreakfast:
             {
                 showMeal_List();
                 Global.timing = "snack_breakfast";
+                Global.timing_id = 4;
             }
             break;
             case R.id.linCheckedSnackLunch:
             {
                 showMeal_List();
                 Global.timing = "snack_lunch";
+                Global.timing_id = 5;
             }
             break;
             case R.id.linCheckedSnackDinner:
             {
                 showMeal_List();
                 Global.timing = "snack_dinner";
+                Global.timing_id = 6;
             }
             break;
             case R.id.linAddBreakfast: {
                 searchFood();
                 Global.timing = "breakfast";
+                Global.timing_id = 1;
             }
                 break;
             case R.id.linAddLunch: {
                 searchFood();
                 Global.timing = "lunch";
+                Global.timing_id = 2;
             }
                 break;
             case R.id.linAddDinner:
             {
                 searchFood();
                 Global.timing = "dinner";
+                Global.timing_id = 3;
             }
                 break;
             case R.id.linAddSnackBreakfast:
             {
                 searchFood();
                 Global.timing = "snack_breakfast";
+                Global.timing_id = 4;
             }
                 break;
             case R.id.linAddSnackLunch:
             {
                 searchFood();
                 Global.timing = "snack_lunch";
+                Global.timing_id = 5;
             }
                 break;
             case R.id.linAddSnackDinner:
             {
                 searchFood();
                 Global.timing = "snack_dinner";
+                Global.timing_id = 6;
             }
                 break;
             case R.id.imgSubtractWeight:
@@ -1127,8 +1137,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         }else if(strThigh.equals("")){
             Toast.makeText(this, "Input Thigh", Toast.LENGTH_SHORT).show();
             return;
-        }else if(Global.user_id.equals("")){
-            return;
         }
         PersonalData.getInstance().setWaist_perimeter(Float.parseFloat(strWaist));
         PersonalData.getInstance().setThigh_perimeter(Float.parseFloat(strThigh));
@@ -1190,7 +1198,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", Global.user_id);
                 params.put("date", getCurrentDate());
                 params.put("exercise_rate", strExcercise);
                 params.put("height", strHeight);
@@ -1764,7 +1771,7 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
             Float next_units = Float.parseFloat(weekly_units)-daily_units;
             Float next_points = Float.parseFloat(weekly_points)-daily_points;
 
-            insertPersonalData(weight_f+"", height_f+"", waist_f+"", neck_f+"", thigh_f+"", weekly_units, daily_units+"", date, days, next_units+"", Global.user_id, weekly_points, daily_points+"", next_points+"");
+            insertPersonalData(weight_f+"", height_f+"", waist_f+"", neck_f+"", thigh_f+"", weekly_units, daily_units+"", date, days, next_units+"", "", weekly_points, daily_points+"", next_points+"");
 
             TextView deltaWeight = findViewById(R.id.deltaWeight);
 
@@ -2895,43 +2902,48 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 .enqueue(new Callback<Wrappers.Single<Information>>() {
                     @Override
                     public void onResponse(Call<Wrappers.Single<Information>> call, retrofit2.Response<Wrappers.Single<Information>> response) {
-                        Information information = response.body().data;
+                        if (response.body() != null) {
 
-                        if (information != null) {
-                            PersonalData.getInstance().setGoal(Goal.values()[information.goal]);
-                            PersonalData.getInstance().setInitial_weight(information.initial_weight);
-                            PersonalData.getInstance().setWeight(information.weight);
-                            PersonalData.getInstance().setGender(Gender.values()[information.gender]);
-                            PersonalData.getInstance().setHeight(information.height);
-                            try {
-                                PersonalData.getInstance().setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(information.birthday));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            PersonalData.getInstance().setGymType(information.gym_type);
-                            PersonalData.getInstance().setSportType1(information.sport_type1);
-                            PersonalData.getInstance().setSportType2(information.sport_type2);
-                            PersonalData.getInstance().setSportType3(information.sport_type3);
-                            PersonalData.getInstance().setSportTime1(information.sport_time1);
-                            PersonalData.getInstance().setSportTime2(information.sport_time2);
-                            PersonalData.getInstance().setSportTime3(information.sport_time3);
-                            PersonalData.getInstance().setGoal_weight(information.goal_weight);
-                            PersonalData.getInstance().setWeekly_reduce(information.weekly_goal);
-                            PersonalData.getInstance().setDietMode(DietMode.values()[information.diet_mode]);
+                            Information information = response.body().data;
+
+                            if (information != null) {
+                                PersonalData.getInstance().setGoal(Goal.values()[information.goal]);
+                                PersonalData.getInstance().setInitial_weight(information.initial_weight);
+                                PersonalData.getInstance().setWeight(information.weight);
+                                PersonalData.getInstance().setGender(Gender.values()[information.gender]);
+                                PersonalData.getInstance().setHeight(information.height);
+                                try {
+                                    PersonalData.getInstance().setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(information.birthday));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                PersonalData.getInstance().setGymType(information.gym_type);
+                                PersonalData.getInstance().setSportType1(information.sport_type1);
+                                PersonalData.getInstance().setSportType2(information.sport_type2);
+                                PersonalData.getInstance().setSportType3(information.sport_type3);
+                                PersonalData.getInstance().setSportTime1(information.sport_time1);
+                                PersonalData.getInstance().setSportTime2(information.sport_time2);
+                                PersonalData.getInstance().setSportTime3(information.sport_time3);
+                                PersonalData.getInstance().setGoal_weight(information.goal_weight);
+                                PersonalData.getInstance().setWeekly_reduce(information.weekly_goal);
+                                PersonalData.getInstance().setDietMode(DietMode.values()[information.diet_mode]);
 
 
-                            try {
-                                initView();
-                            } catch (ParseException e) {
-                                e.printStackTrace();
+                                try {
+                                    initView();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    initMeal();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                            try {
-                                initMeal();
-                            } catch (ParseException e) {
-                                e.printStackTrace();
+                            else {
+                                Toast.makeText(DailyCaleandarActivity.this, getResources().getString(R.string.offline_text), Toast.LENGTH_LONG).show();
                             }
-                        }
-                        else {
+                        } else {
                             Toast.makeText(DailyCaleandarActivity.this, getResources().getString(R.string.offline_text), Toast.LENGTH_LONG).show();
                         }
                     }

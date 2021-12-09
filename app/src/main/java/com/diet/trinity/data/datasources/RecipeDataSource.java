@@ -38,7 +38,7 @@ public class RecipeDataSource extends PageKeyedDataSource<Integer, Recipe> {
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Recipe> callback) {
         state.postValue(LOADING);
         REST rest = MainApplication.getContainer().get(REST.class);
-        rest.RecipesIndex(1, mParams.getString("q"))
+        rest.RecipesIndex(1, mParams.getString("q"), mParams.getInt("category"))
                 .enqueue(new Callback<Wrappers.Paginated<Recipe>>() {
                     @Override
                     public void onResponse(@Nullable Call<Wrappers.Paginated<Recipe>> call, @Nullable Response<Wrappers.Paginated<Recipe>> response) {
@@ -74,7 +74,7 @@ public class RecipeDataSource extends PageKeyedDataSource<Integer, Recipe> {
         state.postValue(LOADING);
         REST rest = MainApplication.getContainer().get(REST.class);
         int user = mParams.getInt(EXTRA_USER);
-        rest.RecipesIndex(params.key, mParams.getString("q"))
+        rest.RecipesIndex(params.key, mParams.getString("q"), mParams.getInt("category"))
                 .enqueue(new Callback<Wrappers.Paginated<Recipe>>() {
 
                     @Override
