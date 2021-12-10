@@ -159,7 +159,14 @@ public class SettingActivity extends AppCompatActivity {
                                             save_setting("back");
                                         }
                                     }})
-                                .setNegativeButton(android.R.string.no, null).show();
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(SettingActivity.this, DailyCaleandarActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).show();
                     }
                     else {
                         Intent intent = new Intent(SettingActivity.this, DailyCaleandarActivity.class);

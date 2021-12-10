@@ -152,6 +152,7 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
                                                     public void onClick(View view) {
                                                         Intent intent=new Intent(RecipesActivity.this, RecipeSingleActivity.class);
                                                         intent.putExtra("foodID", view.getId());
+                                                        intent.putExtra("activity", "recipes");
                                                         startActivity(intent);
                                                     }
                                                 });

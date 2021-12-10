@@ -92,6 +92,12 @@ public interface REST {
             @Query("category") @Nullable int category
     );
 
+    @Headers("Accept: application/json")
+    @GET("recipes/{id}")
+    Call<Wrappers.Single<Recipe>> RecipeShow(
+            @Path("id") int id
+    );
+
     @GET("recipes/list")
     Call<Wrappers.Collection<Recipe>> RecipesByCategory(
             @Query("index") @Nullable int index,

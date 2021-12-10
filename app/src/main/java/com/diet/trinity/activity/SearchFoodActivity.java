@@ -505,6 +505,7 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
                 public void onClick(View v) {
                     Intent intent=new Intent(SearchFoodActivity.this, RecipeSingleActivity.class);
                     intent.putExtra("foodID", v.getId());
+                    intent.putExtra("activity", "search");
                     startActivity(intent);
                 }
             });
@@ -517,6 +518,7 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
             String point_txt = String.format(Locale.US, "%.1f", recipe.points) + " points / " + String.format(Locale.US, "%.1f", recipe.units) + " units";
             holder.point_txt.setText(point_txt);
             holder.id_btn.setId(recipe.id);
+            holder.title.setId(recipe.id);
         }
 
         @NonNull
