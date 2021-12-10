@@ -54,11 +54,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipeSingleActivity extends AppCompatActivity{
-    private static final int REQUEST = 1200;
     int food_id=0, category=0;
     String act = "";
     ImageView foodImage, pdfDownload;
-    TextView description_txt, title_txt, points_txt, ingredient_txt, ingredient_grams_txt, meal_label;
+    TextView description_txt, title_txt, points_txt, meal_label;
 
     ScrollView scrollView;
     LinearLayout ll_linear;
