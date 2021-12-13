@@ -31,6 +31,7 @@ public class MainApplication extends Application {
                 .build();
         CONTAINER.install(new RetrofitProvider(this));
         CONTAINER.install(new JacksonProvider());
+        System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
     }
 
 }

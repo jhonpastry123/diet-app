@@ -64,14 +64,16 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/space_40"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_next" />
+                android:src="@drawable/ic_next"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/space_250"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView23"

@@ -132,6 +132,7 @@ public class PaypalLinkActivity extends AppCompatActivity {
                                                      List<SkuDetails> skuDetailsList) {
                         // Process the result.
                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && !skuDetailsList.isEmpty()) {
+
                             for (SkuDetails skuDetails : skuDetailsList) {
                                 updateUI(skuDetails);
                             }
@@ -142,6 +143,7 @@ public class PaypalLinkActivity extends AppCompatActivity {
 
     private void updateUI(SkuDetails skuDetails) {
         this.skuDetails = skuDetails;
+        Log.e("skuDetailsList is not empty", skuDetails.getSku());
         if (skuDetails.getSku().equals("1vtr1n1t_4")) {
             bronze = skuDetails;
         } else if (skuDetails.getSku().equals("2vtr1n1t_4")) {

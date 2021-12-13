@@ -561,7 +561,7 @@
                                         android:src="@drawable/ic_timer" />
 
                                     <TextView
-                                        android:id="@+id/txtTimerSnackBreakfast"
+                                        android:id="@+id/txtTimerBreakfastSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerVertical="true"
@@ -586,7 +586,7 @@
                                     android:layout_height="match_parent">
 
                                     <LinearLayout
-                                        android:id="@+id/linAddSnackBreakfast"
+                                        android:id="@+id/linAddBreakfastSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -612,7 +612,7 @@
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:id="@+id/linCheckedSnackBreakfast"
+                                        android:id="@+id/linCheckedBreakfastSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentTop="true"
@@ -637,21 +637,21 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtSnackBreakfastProtein"
+                                            android:id="@+id/txtBreakfastSnackProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackBreakfastCarbon"
+                                            android:id="@+id/txtBreakfastSnackCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackBreakfastFat"
+                                            android:id="@+id/txtBreakfastSnackFat"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -667,21 +667,21 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtSnackBreakfastProteinGram"
+                                            android:id="@+id/txtBreakfastSnackProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackBreakfastCarbonGram"
+                                            android:id="@+id/txtBreakfastSnackCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackBreakfastFatGram"
+                                            android:id="@+id/txtBreakfastSnackFatGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -692,7 +692,7 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txtPointSnackBreakfast"
+                                android:id="@+id/txtPointBreakfastSnack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_3"
@@ -906,7 +906,7 @@
                                         android:src="@drawable/ic_timer" />
 
                                     <TextView
-                                        android:id="@+id/txtTimerSnackLunch"
+                                        android:id="@+id/txtTimerLunchSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerVertical="true"
@@ -931,7 +931,7 @@
                                     android:layout_height="match_parent">
 
                                     <LinearLayout
-                                        android:id="@+id/linAddSnackLunch"
+                                        android:id="@+id/linAddLunchSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -957,7 +957,7 @@
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:id="@+id/linCheckedSnackLunch"
+                                        android:id="@+id/linCheckedLunchSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentTop="true"
@@ -982,21 +982,21 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtSnackLunchProtein"
+                                            android:id="@+id/txtLunchSnackProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackLunchCarbon"
+                                            android:id="@+id/txtLunchSnackCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackLunchFat"
+                                            android:id="@+id/txtLunchSnackFat"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1011,21 +1011,21 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtSnackLunchProteinGram"
+                                            android:id="@+id/txtLunchSnackProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackLunchCarbonGram"
+                                            android:id="@+id/txtLunchSnackCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackLunchFatGram"
+                                            android:id="@+id/txtLunchSnackFatGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1035,7 +1035,7 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txtPointSnackLunch"
+                                android:id="@+id/txtPointLunchSnack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_3"
@@ -1249,7 +1249,7 @@
                                         android:src="@drawable/ic_timer" />
 
                                     <TextView
-                                        android:id="@+id/txtTimerSnackDinner"
+                                        android:id="@+id/txtTimerDinnerSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerVertical="true"
@@ -1274,7 +1274,7 @@
                                     android:layout_height="match_parent">
 
                                     <LinearLayout
-                                        android:id="@+id/linAddSnackDinner"
+                                        android:id="@+id/linAddDinnerSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -1300,7 +1300,7 @@
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:id="@+id/linCheckedSnackDinner"
+                                        android:id="@+id/linCheckedDinnerSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentTop="true"
@@ -1325,21 +1325,21 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtSnackDinnerProtein"
+                                            android:id="@+id/txtDinnerSnackProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackDinnerCarbon"
+                                            android:id="@+id/txtDinnerSnackCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackDinnerFat"
+                                            android:id="@+id/txtDinnerSnackFat"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1354,21 +1354,21 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtSnackDinnerProteinGram"
+                                            android:id="@+id/txtDinnerSnackProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackDinnerCarbonGram"
+                                            android:id="@+id/txtDinnerSnackCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtSnackDinnerFatGram"
+                                            android:id="@+id/txtDinnerSnackFatGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1378,7 +1378,7 @@
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/txtPointSnackDinner"
+                                android:id="@+id/txtPointDinnerSnack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/space_3"

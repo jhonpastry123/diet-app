@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.diet.trinity.data.models.Category;
 import com.diet.trinity.data.models.FoodItem;
 import com.diet.trinity.data.models.Information;
+import com.diet.trinity.data.models.Meal;
 import com.diet.trinity.data.models.Recipe;
 import com.diet.trinity.data.models.Sport;
 import com.diet.trinity.data.models.Token;
@@ -12,6 +13,7 @@ import com.diet.trinity.data.models.User;
 import com.diet.trinity.data.models.Wrappers;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -119,4 +121,23 @@ public interface REST {
             @Query("gram") float gram,
             @Query("timing_id") int timing_id //[1=>'breakfast', 2=>'lunch', 3=>'dinner', 4=>'breakfast_snack', 5=>'lunch_snack', 6=>'dinner_snack']
     );
+
+    @Headers("Accept: application/json")
+    @GET("check_available")
+    Call<Boolean> checkAvailable();
+
+    @Headers("Accept: application/json")
+    @POST("purchase_membership")
+    Call<Boolean> purchaseMembership(
+            @Query("type") int type
+    );
+
+    @GET("meals/list")
+    Call<Wrappers.Collection<Meal>> MealsByCategory(
+            @Query("date") @Nullable String date,
+            @Query("timing_id") @Nullable int timing_id
+    );
+
+    @DELETE("meals/{id}")
+    Call<Boolean> MealsDelete(@Path("id") int id);
 }

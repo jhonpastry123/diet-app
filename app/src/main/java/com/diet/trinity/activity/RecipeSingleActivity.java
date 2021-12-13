@@ -180,30 +180,7 @@ public class RecipeSingleActivity extends AppCompatActivity{
         meal_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==1)
-                {
-                    Global.timing = "breakfast";
-                }
-                else if(position==2)
-                {
-                    Global.timing = "lunch";
-                }
-                else if(position==3)
-                {
-                    Global.timing = "dinner";
-                }
-                else if(position==4)
-                {
-                    Global.timing = "snack_breakfast";
-                }
-               else if(position==5)
-                {
-                    Global.timing = "snack_lunch";
-                }
-                else if(position==6)
-                {
-                    Global.timing = "snack_dinner";
-                }
+                Global.timing_id = position;
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

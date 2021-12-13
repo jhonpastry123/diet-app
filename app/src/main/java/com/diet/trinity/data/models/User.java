@@ -8,6 +8,8 @@ public class User implements Parcelable {
     public String email;
     public int type;
     public String purchase_time;
+    public String created_at;
+    public String updated_at;
 
     public User() {
 
@@ -18,6 +20,8 @@ public class User implements Parcelable {
         email = in.readString();
         type = in.readInt();
         purchase_time = in.readString();
+        created_at = in.readString();
+        updated_at = in.readString();
     }
 
     @Override
@@ -26,6 +30,9 @@ public class User implements Parcelable {
         dest.writeString(email);
         dest.writeInt(type);
         dest.writeString(purchase_time);
+        dest.writeString(created_at);
+        dest.writeString(updated_at);
+
     }
 
     @Override

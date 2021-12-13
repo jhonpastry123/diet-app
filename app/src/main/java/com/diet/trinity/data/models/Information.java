@@ -26,7 +26,6 @@ public class Information implements Parcelable {
     public float waist;
     public float thigh;
     public String date;
-
     public Information() {
 
     }

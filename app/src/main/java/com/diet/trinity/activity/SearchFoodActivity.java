@@ -43,6 +43,8 @@ import com.diet.trinity.data.models.FoodItem;
 import com.diet.trinity.data.models.Recipe;
 import com.diet.trinity.data.models.Wrappers;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -187,14 +189,20 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
     }
 
     private void addEventListener(){
-        final TextView _count = findViewById(R.id.txtSelectedMealCount);
-
         findViewById(R.id.imgBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchFoodActivity.this, DailyCaleandarActivity.class);
-                startActivity(intent);
-                finish();
+                if (getIntent().getStringExtra("activity").equals("meal")) {
+                    Intent intent = new Intent(SearchFoodActivity.this, MealListActivity.class);
+                    intent.putExtra("date", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+                    startActivity(intent);
+                    finish();
+
+                } else {
+                    Intent intent = new Intent(SearchFoodActivity.this, DailyCaleandarActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

@@ -1,32 +1,26 @@
 package com.diet.trinity.activity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
-import com.diet.trinity.Utility.PurchaseTimeHelper;
-import com.diet.trinity.data.common.PersonalData;
+import com.diet.trinity.data.api.REST;
 
-import java.util.Calendar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PaymentDetails extends AppCompatActivity {
     TextView txtId,txtAmount,txtStatus;
-
-    SQLiteOpenHelper openHelper_purchase;
-    SQLiteDatabase db_purchase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_details);
-
-        openHelper_purchase = new PurchaseTimeHelper(PaymentDetails.this);
-        db_purchase = openHelper_purchase.getWritableDatabase();
 
         txtId = findViewById(R.id.txtId);
         txtAmount = findViewById(R.id.txtAmount);
@@ -38,21 +32,35 @@ public class PaymentDetails extends AppCompatActivity {
     }
 
     private void showDetails(String paymentAmount) {
+        int type = 0;
         if(paymentAmount.equals("3"))
         {
-            PersonalData.getInstance().setMembership(1);
-            PersonalData.getInstance().setPurchase_time(Calendar.getInstance().getTime().getTime());
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-            finish();
+            type = 1;
         }
         else if(paymentAmount.equals("49.99"))
         {
-            PersonalData.getInstance().setMembership(2);
-            PersonalData.getInstance().setPurchase_time(Calendar.getInstance().getTime().getTime());
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-            finish();
+            type = 2;
+        }
+
+        if (type != 0) {
+            REST rest = MainApplication.getContainer().get(REST.class);
+            rest.purchaseMembership(type)
+                    .enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            Boolean flag = response.body();
+                            if (flag) {
+                                Intent intent = new Intent(PaymentDetails.this, DailyCaleandarActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
         }
     }
 }

@@ -580,20 +580,21 @@ public class SettingActivity extends AppCompatActivity {
                         User user = response.body().data;
                         Date date = null;
                         user_id = user.id;
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.of("Europe/Paris"));;
-                        try {
-                            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(user.purchase_time);
-                        } catch (ParseException e) {
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar cal = Calendar.getInstance();
+                        try{
+                            cal.setTime(sdf.parse(user.purchase_time));
+                        }catch(ParseException e){
                             e.printStackTrace();
                         }
+
                         if (user.type == 0) {
-                            Instant instant = date.toInstant();
-                            Instant nextDay = instant.plus(1, ChronoUnit.DAYS);
-                            txtExpire.setText(formatter.format(nextDay));
+                            cal.add(Calendar.DAY_OF_MONTH, 1);
+                            txtExpire.setText(sdf.format(cal.getTime()));
                         } else {
-                            Instant instant = date.toInstant();
-                            Instant nextMonth = instant.plus(1, ChronoUnit.MONTHS);
-                            txtExpire.setText(formatter.format(nextMonth));
+                            cal.add(Calendar.MONTH, 1);
+                            txtExpire.setText(sdf.format(cal.getTime()));
                         }
                     }
 

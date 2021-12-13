@@ -93,7 +93,6 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
         mProgressDialog.show();
 
         REST rest = MainApplication.getContainer().get(REST.class);
-        Call<Wrappers.Collection<Category>> call = rest.CategoriesIndex();
         rest.CategoriesIndex()
                 .enqueue(new Callback<Wrappers.Collection<Category>>() {
                     @Override

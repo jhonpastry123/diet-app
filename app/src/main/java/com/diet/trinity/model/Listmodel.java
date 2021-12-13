@@ -7,48 +7,33 @@ import java.util.Locale;
 public class Listmodel {
     Integer item_id;
     String item_name;
-    String item_carbon;
-    String item_protein;
-    String item_fat;
-    String item_gram;
-    String item_point;
-    String item_unit;
-    boolean recipe;
-    public Listmodel(Integer id, String foodname, String carbon_m, String protein_m, String fat_m, String gram_m, String point_m, String unit_m) throws JSONException {
+    Float item_size;
+    Float item_count;
+    String item_prefix;
+    Float item_points;
+    Float item_units;
+
+    public Listmodel(Integer id, String item_name, Float item_size, Float item_count, String item_prefix, Float item_points, Float item_units ) {
         this.item_id = id;
-        this.item_name = foodname;
-        this.item_carbon = carbon_m;
-        this.item_protein = protein_m;
-        this.item_fat = fat_m;
-        if (Float.parseFloat(gram_m) == 0f) {
-            this.item_gram = "";
-        }
-        else {
-            this.item_gram = "Ποσότητα (" + gram_m + "γρ.)";
-        }
-        this.item_point = point_m;
-        this.item_unit = unit_m;
-        this.recipe = false;
+        this.item_name = item_name;
+        this.item_size = item_size;
+        this.item_count = item_count;
+        this.item_prefix = item_prefix;
+        this.item_points = item_points;
+        this.item_units = item_units;
     }
 
-    public String getListTitle() throws JSONException {
+    public String getListTitle() {
         return item_name;
     }
-    public String getListGram() throws JSONException {
-        return item_gram;
+
+    public String getListGram() {
+        return item_count + " " + item_prefix + " (" + item_size + "γρ.)";
     }
-    public String getListPoint() throws JSONException {
-        return String.format(Locale.US, "%.1f", Float.parseFloat(item_point)) + " points / " + String.format(Locale.US, "%.1f", Float.parseFloat(item_unit)) + " units";
+    public String getListPoint() {
+        return String.format(Locale.US, "%.1f", item_points) + " points / " + String.format(Locale.US, "%.1f", item_units) + " units";
     }
-    public Integer getListId() throws JSONException{
+    public Integer getListId() {
         return item_id;
-    }
-
-    public void setRecipe(boolean b) throws JSONException{
-        recipe = b;
-    }
-
-    public boolean getRecipe() throws JSONException{
-        return recipe;
     }
 }

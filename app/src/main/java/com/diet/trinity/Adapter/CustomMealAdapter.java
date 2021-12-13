@@ -11,25 +11,24 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.MealDatabaseHelper;
+import com.diet.trinity.data.api.REST;
 import com.diet.trinity.model.Listmodel;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CustomMealAdapter extends BaseAdapter  {
-    ArrayList listItem = new ArrayList<>();
     public Context context;
     public ArrayList<Listmodel> FoodList;
-    private SQLiteDatabase db;
-    private SQLiteOpenHelper openHelper;
-    public DataSetObservable mDataSetObservable = new DataSetObservable();
 
-    public void notifyDataSetChanged() {
-        mDataSetObservable.notifyChanged();
-    }
     public CustomMealAdapter(Context context, ArrayList<Listmodel> FoodList) {
         super();
         this.context = context;
@@ -62,6 +61,8 @@ public class CustomMealAdapter extends BaseAdapter  {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final FoodHolder holder;
+        Listmodel fooditem = FoodList.get(position);
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.meal_list_item, parent, false);
             holder = new FoodHolder();
@@ -74,28 +75,31 @@ public class CustomMealAdapter extends BaseAdapter  {
             holder = (FoodHolder) convertView.getTag();
         }
 
-        try {
-            holder.title.setText(FoodList.get(position).getListTitle());
-            holder.gram_txt.setText(FoodList.get(position).getListGram());
-            holder.point_txt.setText(FoodList.get(position).getListPoint());
-            holder.id_btn.setId(FoodList.get(position).getListId());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        holder.title.setText(fooditem.getListTitle());
+        holder.gram_txt.setText(fooditem.getListGram());
+        holder.point_txt.setText(FoodList.get(position).getListPoint());
+        holder.id_btn.setId(FoodList.get(position).getListId());
 
         holder.id_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openHelper = new MealDatabaseHelper(v.getContext());
-                db = openHelper.getWritableDatabase();
-                String sql = "DELETE FROM "+MealDatabaseHelper.TABLE_NAME +" WHERE ID = ?";
-                db.execSQL(sql, new Integer[]{(v.getId())});
+                REST rest = MainApplication.getContainer().get(REST.class);
+                rest.MealsDelete(v.getId())
+                        .enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                Boolean flag = response.body();
+                                if (flag) {
+                                    FoodList.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            }
 
-                holder.title.setVisibility(View.GONE);
-                holder.gram_txt.setVisibility(View.GONE);
-                holder.point_txt.setVisibility(View.GONE);
-                holder.id_btn.setVisibility(View.GONE);
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
 
+                            }
+                        });
             }
         });
         return convertView;
