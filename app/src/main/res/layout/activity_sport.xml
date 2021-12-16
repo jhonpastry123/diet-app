@@ -55,31 +55,36 @@
                 android:layout_marginTop="@dimen/space_30"
                 android:layout_marginLeft="@dimen/space_40"
                 android:layout_marginRight="@dimen/space_40">
+
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="   Σπάνια (0 φορές)"
-                    android:textSize="18sp"/>
+                    android:text=" Χαμηλή (λόγω αναπηρίας ή σοβαρών προβλημάτων υγείας)"
+                    android:textSize="18sp" />
+
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="   Λίγη (0-3 φορές)"
-                    android:textSize="18sp"/>
+                    android:text=" Μέτρια (περπάτημα &amp; βασικές δραστηριότητες)"
+                    android:textSize="18sp" />
+
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="   Μέτρια (3 - 5 φορές)"
-                    android:textSize="18sp"/>
+                    android:text=" Έντονη (έντονη άσκηση 2-3 φορές /εβδομάδα)"
+                    android:textSize="18sp" />
+
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="   Καθημερινή (5 - 7 φορές)"
-                    android:textSize="18sp"/>
+                    android:text=" Πολύ έντονη (έντονη άσκηση 4-5 φορές /εβδομάδα)"
+                    android:textSize="18sp" />
+
                 <RadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="   Αθλητική"
-                    android:textSize="18sp"/>
+                    android:text=" Αθλητική (καθημερινή άσκηση αγωνιστικού επιπέδου)"
+                    android:textSize="18sp" />
             </RadioGroup>
 
             <LinearLayout

@@ -84,6 +84,7 @@ public class MealListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MealListActivity.this, SearchFoodActivity.class);
                 intent.putExtra("activity", "meal");
+                intent.putExtra("date", getIntent().getStringExtra("date"));
                 startActivity(intent);
                 finish();
             }

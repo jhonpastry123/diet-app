@@ -9,6 +9,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 import com.vaibhavpandey.katora.Container;
 import com.vaibhavpandey.katora.contracts.ImmutableContainer;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 public class MainApplication extends Application {
     private static final Container CONTAINER = new Container();
     private static final String TAG = "MainApplication";
@@ -32,6 +34,8 @@ public class MainApplication extends Application {
         CONTAINER.install(new RetrofitProvider(this));
         CONTAINER.install(new JacksonProvider());
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
+
+        JodaTimeAndroid.init(this);
     }
 
 }

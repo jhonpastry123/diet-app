@@ -25,22 +25,24 @@
                 android:textColor="@android:color/black"
                 android:text="Δοκιμαστική Περίοδος"/>
         </RelativeLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabMembership"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:visibility="gone">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabTrail"
-                android:text="ΠΕΡΙΟΡΙΣΜΕΝΗ"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="ΠΕΡΙΟΡΙΣΜΕΝΗ" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabPremium"
-                android:text="ΑΠΕΡΙΟΡΙΣΤΗ"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="ΑΠΕΡΙΟΡΙΣΤΗ" />
 
         </com.google.android.material.tabs.TabLayout>
         <LinearLayout
@@ -53,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@id/imgNext"
@@ -123,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"

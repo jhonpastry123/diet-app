@@ -96,11 +96,9 @@ public class SettingActivity extends AppCompatActivity {
         initView();
         addEventListener();
 
-        String current_date = new SimpleDateFormat("yyyy-MM-dd").format(selected_date);
-        show_date_setting(current_date);
-
         set_expired_text();
         set_sport_list();
+
     }
 
     private void initView() {
@@ -111,6 +109,7 @@ public class SettingActivity extends AppCompatActivity {
         txtGoal = findViewById(R.id.resText);
 
         meal_dropdown = findViewById(R.id.mealDropdown);
+        meal_dropdown.setSelection(Global.meal_num);
         goal_dropdown = findViewById(R.id.goalDropdown);
         dropdown1 = findViewById(R.id.sport1);
         dropdown2 = findViewById(R.id.sport2);
@@ -149,8 +148,8 @@ public class SettingActivity extends AppCompatActivity {
                     Date current_date = Calendar.getInstance().getTime();
                     if (new SimpleDateFormat("dd/MM/yyyy").format(selected_date).equals(new SimpleDateFormat("dd/MM/yyyy").format(current_date))) {
                         new AlertDialog.Builder(SettingActivity.this)
-                                .setTitle("Title")
-                                .setMessage("Do you really want to whatever?")
+                                .setTitle("Ρυθμίσεις")
+                                .setMessage("Αποθήκευση αλλαγών?")
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -180,8 +179,7 @@ public class SettingActivity extends AppCompatActivity {
         meal_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                Meal_choose = selectedItemText;
+                Global.meal_num = position;
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -265,8 +263,8 @@ public class SettingActivity extends AppCompatActivity {
                 String date = year + "-" + (month+1) + "-"+ dayOfMonth ;
                 if (new SimpleDateFormat("dd/MM/yyyy").format(selected_date).equals(new SimpleDateFormat("dd/MM/yyyy").format(current_date))) {
                     new AlertDialog.Builder(SettingActivity.this)
-                            .setTitle("Title")
-                            .setMessage("Do you really want to whatever?")
+                            .setTitle("Ρυθμίσεις")
+                            .setMessage("Αποθήκευση αλλαγών?")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -437,7 +435,6 @@ public class SettingActivity extends AppCompatActivity {
                                     exSports.setChecked(true);
                                     linSportContainer.setVisibility(VISIBLE);
                                     dropdown1.setSelection(information.sport_type1);
-                                    Log.e("time", information.sport_time1+"");
                                     txt1.setText(information.sport_time1+"");
                                     if (information.sport_time2 != 0) {
                                         layout2.setVisibility(VISIBLE);
@@ -472,7 +469,6 @@ public class SettingActivity extends AppCompatActivity {
                             }
                             gender = information.gender;
                             goal_dropdown.setSelection(information.goal);
-                            meal_dropdown.setSelection(Global.meal_num);
                             try {
                                 selected_date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
                             } catch (ParseException e) {
@@ -509,9 +505,21 @@ public class SettingActivity extends AppCompatActivity {
         float weekly_goal = mWeeklyReduce;
 
         if (gym_type == 4) {
-            sport_time1 = Integer.parseInt(txt1.getText().toString());
-            sport_time2 = Integer.parseInt(txt2.getText().toString());
-            sport_time3 = Integer.parseInt(txt3.getText().toString());
+            if (txt1.getText().length() != 0) {
+                sport_time1 = Integer.parseInt(txt1.getText().toString());
+            } else {
+                sport_time1 = 0;
+            }
+            if (txt2.getText().length() != 0) {
+                sport_time2 = Integer.parseInt(txt2.getText().toString());
+            } else {
+                sport_time2 = 0;
+            }
+            if (txt3.getText().length() != 0) {
+                sport_time3 = Integer.parseInt(txt3.getText().toString());
+            } else {
+                sport_time3 = 0;
+            }
         } else {
             sport_type1 = 0;
             sport_type2 = 0;
@@ -530,7 +538,6 @@ public class SettingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         Boolean result = response.body();
-                        Log.e("result", result + "");
                         if (result == true) {
                             if (action == "back") {
                                 Intent intent = new Intent(SettingActivity.this, DailyCaleandarActivity.class);
@@ -619,6 +626,7 @@ public class SettingActivity extends AppCompatActivity {
                             element_data.put(sport.id, sport.coefficient);
                             element_id_data.put(sport.name, sport.id);
                         }
+                        DropDown();
                     }
 
                     @Override
@@ -627,9 +635,8 @@ public class SettingActivity extends AppCompatActivity {
                     }
                 });
 
-        DropDown("Select Sports", "1");
     }
-    private void DropDown(String title, String id) {
+    private void DropDown() {
         Spinner dropdown1 = findViewById(R.id.sport1);
         Spinner dropdown2 = findViewById(R.id.sport2);
         Spinner dropdown3 = findViewById(R.id.sport3);
@@ -639,5 +646,8 @@ public class SettingActivity extends AppCompatActivity {
         dropdown1.setAdapter(adapter);
         dropdown2.setAdapter(adapter);
         dropdown3.setAdapter(adapter);
+
+        String current_date = new SimpleDateFormat("yyyy-MM-dd").format(selected_date);
+        show_date_setting(current_date);
     }
 }

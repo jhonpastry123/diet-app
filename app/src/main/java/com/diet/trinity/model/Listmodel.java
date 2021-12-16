@@ -13,7 +13,7 @@ public class Listmodel {
     Float item_points;
     Float item_units;
 
-    public Listmodel(Integer id, String item_name, Float item_size, Float item_count, String item_prefix, Float item_points, Float item_units ) {
+    public Listmodel(Integer id, String item_name, Float item_size, Float item_count, String item_prefix, Float item_units, Float item_points ) {
         this.item_id = id;
         this.item_name = item_name;
         this.item_size = item_size;

@@ -1,13 +1,8 @@
 package com.diet.trinity.Utility;
 
 public class Global {
-    static public float carbon = 0;
-    static public float protein = 0;
-    static public float fat = 0;
     static public float points = 0;
     static public float units = 0;
-    static public float total = 0;
-    static public int categoryid=0;
 
     //---------morning------//
     static public float morning_carbon = 0;
@@ -57,7 +52,6 @@ public class Global {
     static public float snack_dinner_units = 0;
     static public float snack_dinner_total = 0;
 
-    static public String timing="";
     static public int timing_id=0;
     static public int user_id=0;
     static public String token = "";
@@ -68,6 +62,26 @@ public class Global {
 
     //------meal-----------//
     static public Integer meal_num = 0;
+    static public Integer pasta_num = 0;
+    static public Integer legumes_num = 0;
+    static public Integer oily_num = 0;
+    static public Integer junk_img_num = 0;
+    static public Integer fruit_num = 0;
+    static public Integer meat_num = 0;
+    static public Integer oily_img_num = 0;
+
+    static public Boolean bCarbon = false;
+    static public Boolean bProtein = false;
+    static public Boolean bFat = false;
+
+    static public Boolean lCarbon = false;
+    static public Boolean lProtein = false;
+    static public Boolean lFat = false;
+
+    static public Boolean dCarbon = false;
+    static public Boolean dProtein = false;
+    static public Boolean dFat = false;
+
 
     static public float gram = 0;
 }

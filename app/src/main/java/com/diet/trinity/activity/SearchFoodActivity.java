@@ -192,7 +192,8 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
         findViewById(R.id.imgBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getIntent().getStringExtra("activity").equals("meal")) {
+                String param = getIntent().getStringExtra("activity");
+                if (param!=null && param.equals("meal")) {
                     Intent intent = new Intent(SearchFoodActivity.this, MealListActivity.class);
                     intent.putExtra("date", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
                     startActivity(intent);
@@ -389,8 +390,9 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
         int user_id = Global.user_id;
         int timing_id = Global.timing_id;
 
+        String date = getIntent().getStringExtra("date");
         REST rest = MainApplication.getContainer().get(REST.class);
-        rest.MealStore(user_id, food_id, recipe_id, gram, timing_id)
+        rest.MealStore(user_id, food_id, recipe_id, gram, timing_id, date)
                 .enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -490,10 +492,10 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
         public FoodItemViewHolder(@NonNull View root) {
             super(root);
 
-            title=(TextView) root.findViewById(R.id.listitem_title);
-            gram_txt=(TextView) root.findViewById(R.id.gram_txt);
-            point_txt=(TextView) root.findViewById(R.id.point_txt);
-            id_btn=(ImageView) root.findViewById(R.id.imgAddMeal);
+            title=root.findViewById(R.id.listitem_title);
+            gram_txt=root.findViewById(R.id.gram_txt);
+            point_txt=root.findViewById(R.id.point_txt);
+            id_btn=root.findViewById(R.id.imgAddMeal);
         }
     }
 
@@ -514,6 +516,8 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
                     Intent intent=new Intent(SearchFoodActivity.this, RecipeSingleActivity.class);
                     intent.putExtra("foodID", v.getId());
                     intent.putExtra("activity", "search");
+                    String date = getIntent().getStringExtra("date");
+                    intent.putExtra("date", date);
                     startActivity(intent);
                 }
             });
@@ -548,10 +552,10 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
         public RecipeViewHolder(@NonNull View root) {
             super(root);
 
-            title=(TextView) root.findViewById(R.id.listitem_title);
-            gram_txt=(TextView) root.findViewById(R.id.gram_txt);
-            point_txt=(TextView) root.findViewById(R.id.point_txt);
-            id_btn=(ImageView) root.findViewById(R.id.imgAddMeal);
+            title=root.findViewById(R.id.listitem_title);
+            gram_txt=root.findViewById(R.id.gram_txt);
+            point_txt=root.findViewById(R.id.point_txt);
+            id_btn=root.findViewById(R.id.imgAddMeal);
         }
     }
 }

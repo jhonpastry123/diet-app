@@ -1,14 +1,18 @@
 package com.diet.trinity.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Adapter;
@@ -22,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
@@ -68,15 +73,20 @@ public class RecipeSingleActivity extends AppCompatActivity{
     String food_names = "";
     String food_grams = "";
     Spinner meal_dropdown;
+    String date ="";
+    Boolean collapse = false;
+    int mCategory = 0;
 
     ArrayList<String> meal_list = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipie_single);
+        ActivityCompat.requestPermissions(RecipeSingleActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         food_id=getIntent().getIntExtra("foodID", 0);
         act=getIntent().getStringExtra("activity");
+        date = getIntent().getStringExtra("date");
 
         foodImage = findViewById(R.id.foodImage);
         description_txt = findViewById(R.id.description);
@@ -95,8 +105,8 @@ public class RecipeSingleActivity extends AppCompatActivity{
         ll_linear = findViewById(R.id.contentLayout);
         relativeLayout =  findViewById(R.id.contentLayout);
         //-----------------------//
-        addEventListener();
         setupViews();
+        addEventListener();
     }
     private void addEventListener() {
         findViewById(R.id.imgBack).setOnClickListener(new View.OnClickListener() {
@@ -107,6 +117,7 @@ public class RecipeSingleActivity extends AppCompatActivity{
                     startActivity(intent);
                 } else if (act.equals("search")) {
                     Intent intent = new Intent(RecipeSingleActivity.this, SearchFoodActivity.class);
+                    intent.putExtra("date", getIntent().getStringExtra("date"));
                     startActivity(intent);
                 }
                 finish();
@@ -115,45 +126,71 @@ public class RecipeSingleActivity extends AppCompatActivity{
         findViewById(R.id.imgPlus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (meal_dropdown.getVisibility() == View.VISIBLE) {
+                if (collapse) {
+                    if (meal_dropdown.getVisibility() == View.VISIBLE) {
+                        switch (meal_dropdown.getSelectedItem().toString()){
+                            case "ΔΕΚΑΤΙΑΝΟ":
+                                category = 4;
+                                break;
+                            case "ΑΠΟΓΕΥΜΑΤΙΝΟ":
+                                category = 5;
+                                break;
+                            case "ΠΡΟ ΥΠΝΟΥ":
+                                category = 6;
+                                break;
+                            default:
+                                category = 0;
+                                break;
+                        }
 
-                    switch (meal_dropdown.getSelectedItem().toString()){
-                        case "ΠΡΩΙΝΟ":
-                            category = 1;
-                            break;
-                        case "ΜΕΣΗΜΕΡΙΑΝΟ":
-                            category = 2;
-                            break;
-                        case "ΒΡΑΔΙΝΟ":
-                            category = 3;
-                            break;
-                        case "ΔΕΚΑΤΙΑΝΟ":
-                            category = 4;
-                            break;
-                        case "ΑΠΟΓΕΥΜΑΤΙΝΟ":
-                            category = 5;
-                            break;
-                        case "ΠΡΟ ΥΠΝΟΥ":
-                            category = 6;
-                            break;
-                        default:
-                            category = 0;
-                            break;
+                        ProgressDialog mProgressDialog = new ProgressDialog(RecipeSingleActivity.this);
+                        mProgressDialog.setTitle("Loading...");
+                        mProgressDialog.setIndeterminate(false);
+                        mProgressDialog.show();
+
+                        REST rest = MainApplication.getContainer().get(REST.class);
+                        rest.MealStore(Global.user_id, 0, food_id, 0, category, date)
+                                .enqueue(new Callback<Boolean>() {
+                                    @Override
+                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                        Boolean flag = response.body();
+                                        if (flag) {
+                                            Toast.makeText(RecipeSingleActivity.this, "Το γεύμα προστέθηκε με επιτυχία!", Toast.LENGTH_SHORT).show();
+                                            mProgressDialog.dismiss();
+                                        }
+                                        else {
+                                            Toast.makeText(RecipeSingleActivity.this, R.string.offline_text, Toast.LENGTH_SHORT).show();
+                                            mProgressDialog.dismiss();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Boolean> call, Throwable t) {
+                                        Toast.makeText(RecipeSingleActivity.this, R.string.offline_text, Toast.LENGTH_SHORT).show();
+                                        mProgressDialog.dismiss();
+                                    }
+                                });
+                        meal_dropdown.setVisibility(View.GONE);
+                        meal_label.setVisibility(View.GONE);
                     }
-
+                    else {
+                        meal_dropdown.setVisibility(View.VISIBLE);
+                        meal_label.setVisibility(View.VISIBLE);
+                    }
+                } else {
                     ProgressDialog mProgressDialog = new ProgressDialog(RecipeSingleActivity.this);
                     mProgressDialog.setTitle("Loading...");
                     mProgressDialog.setIndeterminate(false);
                     mProgressDialog.show();
 
                     REST rest = MainApplication.getContainer().get(REST.class);
-                    rest.MealStore(Global.user_id, 0, food_id, 0, category)
+                    rest.MealStore(Global.user_id, 0, food_id, 0, mCategory, date)
                             .enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     Boolean flag = response.body();
                                     if (flag) {
-                                        Toast.makeText(RecipeSingleActivity.this, "Current recipe added to meal successfully!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RecipeSingleActivity.this, "Το γεύμα προστέθηκε με επιτυχία!", Toast.LENGTH_SHORT).show();
                                         mProgressDialog.dismiss();
                                     }
                                     else {
@@ -168,13 +205,8 @@ public class RecipeSingleActivity extends AppCompatActivity{
                                     mProgressDialog.dismiss();
                                 }
                             });
-                    meal_dropdown.setVisibility(View.GONE);
-                    meal_label.setVisibility(View.GONE);
                 }
-                else {
-                    meal_dropdown.setVisibility(View.VISIBLE);
-                    meal_label.setVisibility(View.VISIBLE);
-                }
+
             }
         });
         meal_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -193,11 +225,16 @@ public class RecipeSingleActivity extends AppCompatActivity{
                 //File file = saveBitMap(RecipieSingleActivity.this, relativeLayout);
                 String fileStamp = new SimpleDateFormat("yyyymmdd_HHmmss").format(new Date());
                 layoutToImage("recipe"+fileStamp);
-                try {
-                    imageToPDF("recipe"+fileStamp);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageToPDF("recipe"+fileStamp);
+                        deleteImage("recipe"+fileStamp);
+                    }
+                }, 10000);
+
+
             }
         });
     }
@@ -288,9 +325,11 @@ public class RecipeSingleActivity extends AppCompatActivity{
                                     meal_list.add(adapter.getItem(4).toString());
                                     meal_list.add(adapter.getItem(5).toString());
                                     meal_list.add(adapter.getItem(6).toString());
+                                    collapse = true;
                                     break;
                                 default:
                                     meal_list.add(adapter.getItem(recipe.categories_id).toString());
+                                    mCategory = recipe.categories_id;
                                     break;
                             }
                         } else if (act.equals("search")){
@@ -330,7 +369,8 @@ public class RecipeSingleActivity extends AppCompatActivity{
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         viewBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
 
-        File imgFile = new File(android.os.Environment.getExternalStorageDirectory() + File.separator + title + "image.png");
+        String baseDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        File imgFile = new File(baseDir + File.separator + title + "image.png");
         try {
             imgFile.createNewFile();
             FileOutputStream fo = new FileOutputStream(imgFile);
@@ -340,13 +380,13 @@ public class RecipeSingleActivity extends AppCompatActivity{
             e.printStackTrace();
         }
     }
-    public void imageToPDF(String title) throws FileNotFoundException {
+    public void imageToPDF(String title) {
         try {
             Document document = new Document();
             dirpath = android.os.Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
             PdfWriter.getInstance(document, new FileOutputStream(dirpath + "/"+title+".pdf")); //  Change pdf's name.
             document.open();
-            Image img = Image.getInstance(android.os.Environment.getExternalStorageDirectory() + File.separator + title + "image.png");
+            Image img = Image.getInstance(dirpath + File.separator + title + "image.png");
             float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
                     - document.rightMargin() - 0) / img.getWidth()) * 100;
             img.scalePercent(scaler);
@@ -356,6 +396,15 @@ public class RecipeSingleActivity extends AppCompatActivity{
             Toast.makeText(this, "Η αποθήκευση ολοκληρώθηκε!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
 
+        }
+    }
+
+    public void deleteImage(String title) {
+        String baseDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        String path = baseDir + File.separator + title + "image.png";
+        File fdelete = new File(path);
+        if (fdelete.exists()) {
+            Log.e("delete:", fdelete.delete() + "");
         }
     }
 }

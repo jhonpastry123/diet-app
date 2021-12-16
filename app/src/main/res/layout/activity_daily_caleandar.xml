@@ -59,11 +59,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/hiddenList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -281,7 +283,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="161dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/circle_chart"/>
+                                android:src="@drawable/circle_chart" />
 
                         </LinearLayout><!--cell end-->
                         <!--cell start-->
@@ -416,7 +418,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
-                                        android:layout_centerVertical="true"
                                         android:layout_gravity="center_horizontal"
                                         android:gravity="center"
                                         android:orientation="vertical"
@@ -441,10 +442,7 @@
                                         android:id="@+id/linCheckedBreakfast"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_centerInParent="true"
                                         android:visibility="gone">
 
                                         <ImageView
@@ -483,6 +481,7 @@
                                             android:text=""
                                             android:textSize="10sp" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -615,10 +614,7 @@
                                         android:id="@+id/linCheckedBreakfastSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_centerInParent="true"
                                         android:visibility="gone">
 
                                         <ImageView
@@ -788,10 +784,7 @@
                                         android:id="@+id/linCheckedLunch"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_centerInParent="true"
                                         android:visibility="gone">
 
                                         <ImageView
@@ -830,6 +823,7 @@
                                             android:text=""
                                             android:textSize="10sp" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -960,10 +954,7 @@
                                         android:id="@+id/linCheckedLunchSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_centerInParent="true"
                                         android:visibility="gone">
 
                                         <ImageView
@@ -1002,6 +993,7 @@
                                             android:text=""
                                             android:textSize="10sp" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1130,10 +1122,7 @@
                                         android:id="@+id/linCheckedDinner"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_centerInParent="true"
                                         android:visibility="gone">
 
                                         <ImageView
@@ -1172,6 +1161,7 @@
                                             android:text=""
                                             android:textSize="10sp" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1303,10 +1293,7 @@
                                         android:id="@+id/linCheckedDinnerSnack"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentRight="true"
-                                        android:layout_marginTop="5dp"
-                                        android:layout_marginRight="20dp"
+                                        android:layout_centerInParent="true"
                                         android:visibility="gone">
 
                                         <ImageView
@@ -1345,6 +1332,7 @@
                                             android:text=""
                                             android:textSize="10sp" />
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1389,19 +1377,6 @@
 
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fat1"
-                android:layout_width="wrap_content"
-                android:layout_height="170dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/fatt"
-                android:orientation="vertical"
-                android:visibility="gone">
-
             </LinearLayout>
 
             <LinearLayout
@@ -1828,13 +1803,30 @@
                 android:layout_marginRight="@dimen/space_30"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_15"
-                    android:text="ΜΕΤΡΗΣΗ ΒΑΡΟΥΣ"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_weight="3"
+                        android:text="ΜΕΤΡΗΣΗ ΒΑΡΟΥΣ"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/weight_save"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_checkmark" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1931,13 +1923,30 @@
                 android:layout_marginRight="@dimen/space_30"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_15"
-                    android:text="ΠΑΡΑΚΟΛΟΥΘΗΣΗ ΝΕΡΟΥ"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_weight="3"
+                        android:text="ΠΑΡΑΚΟΛΟΥΘΗΣΗ ΝΕΡΟΥ"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/water_save"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_checkmark"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -2476,7 +2485,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_apple_plus" />
+                            android:src="@drawable/ic_apple_idle" />
 
                         <ImageView
                             android:id="@+id/fruit2"

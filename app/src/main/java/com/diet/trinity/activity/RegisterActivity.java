@@ -210,7 +210,6 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         Boolean result = response.body();
-                        Log.e("result", result + "");
                         if (result == true) {
                             Intent intent = new Intent(RegisterActivity.this, DailyCaleandarActivity.class);
                             startActivity(intent);

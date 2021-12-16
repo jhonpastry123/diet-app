@@ -72,5 +72,5 @@
     <dimen name="textsize_normal">4dp</dimen>
     <dimen name="matrix_normal">3dp</dimen>
 
-    <dimen name="recipe_title">7dp</dimen>
+    <dimen name="recipe_title">10dp</dimen>
 </resources>

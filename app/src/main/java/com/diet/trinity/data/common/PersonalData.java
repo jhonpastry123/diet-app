@@ -18,31 +18,20 @@ public class PersonalData {
     private Date birthday, start_date;
     private int age;
     private int gymType;
-    private int[] gymDurationPerWeek;
     private float ideal_weight, goal_weight, weekly_reduce;
     private int points, units;
     private DietMode dietMode;
     private int membership;
     private int sport_type1 = 0, sport_type2 = 0, sport_type3 = 0, sport_time1 = 0, sport_time2 = 0, sport_time3 = 0;
 
-    private long trial_time;
-    private long purchase_time;
-
     public float[] gymCoeff = {1.2f, 1.375f, 1.55f, 1.725f, 1.9f};
     private float total_exercise = 0;
-
-    public int Oily_num = 0;
-    public int Junk_num = 0;
 
     private static PersonalData instance = new PersonalData();
 
     public static PersonalData getInstance()
     {
         return instance;
-    }
-
-    public static void setInstance(PersonalData ins){
-        instance = ins;
     }
 
     public boolean writeData(Context context){
@@ -59,12 +48,6 @@ public class PersonalData {
         }
         return true;
     }
-
-    public void setTrialTime(long trial_time){this.trial_time = trial_time;}
-    public long getTrialTime(){ return trial_time;}
-
-    public void setPurchase_time(long purchase_time){this.purchase_time = purchase_time;}
-    public long getPurchase_time(){return purchase_time;}
 
     public Goal getGoal() {
         return goal;
@@ -122,10 +105,6 @@ public class PersonalData {
         this.start_date = start_date;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     public void setAge(int age) {
         this.age = age;
     }
@@ -164,14 +143,6 @@ public class PersonalData {
     public int getSportTime2() { return sport_time2;}
     public int getSportTime3() { return sport_time3;}
 
-    public int[] getGymDurationPerWeek() {
-        return gymDurationPerWeek;
-    }
-
-    public void setGymDurationPerWeek(int[] gymDurationPerWeek) {
-        this.gymDurationPerWeek = gymDurationPerWeek;
-    }
-
     public float getIdeal_weight() {
         if(gender == Gender.MALE){
             ideal_weight = (int ) (48 + (height - 152) * 1.06);
@@ -206,6 +177,7 @@ public class PersonalData {
     public int getUnits() {
 
         float BMR;
+        float weight = this.weight;
         if (getGoal() == Goal.LOSE){
 
             if(getBMI().value>=29.9 && getBMI().value <=40)
@@ -221,7 +193,7 @@ public class PersonalData {
             float AMR = 0;
             if(gymType == 4)
             {
-                AMR = BMR*1.6f + total_exercise/7;
+                AMR = BMR*1.2f + total_exercise/7;
             }
             else {
                 AMR = BMR * gymCoeff[gymType];
@@ -247,7 +219,7 @@ public class PersonalData {
             float AMR = 0;
             if(gymType == 4)
             {
-                AMR = BMR*1.6f + total_exercise/7;
+                AMR = BMR*1.2f + total_exercise/7;
             }
             else {
                 AMR = BMR * gymCoeff[gymType];
@@ -269,7 +241,7 @@ public class PersonalData {
             float AMR = 0;
             if(gymType == 4)
             {
-                AMR = BMR*1.6f + total_exercise/7;
+                AMR = BMR*1.2f + total_exercise/7;
             }
             else {
                 AMR = BMR * gymCoeff[gymType];
@@ -304,24 +276,12 @@ public class PersonalData {
         this.membership = membership;
     }
 
-    public float getWaist_perimeter() {
-        return waist_perimeter;
-    }
-
     public void setWaist_perimeter(float waist_perimeter) {
         this.waist_perimeter = waist_perimeter;
     }
 
-    public float getNeck_perimeter() {
-        return neck_perimeter;
-    }
-
     public void setNeck_perimeter(float neck_perimeter) {
         this.neck_perimeter = neck_perimeter;
-    }
-
-    public float getThigh_perimeter() {
-        return thigh_perimeter;
     }
 
     public void setThigh_perimeter(float thigh_perimeter) {

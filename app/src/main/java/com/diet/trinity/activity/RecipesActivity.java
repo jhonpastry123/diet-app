@@ -28,7 +28,10 @@ import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -100,118 +103,121 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
                         List<Category> categories = response.body().data;
                         for (int i = 0; i < categories.size(); i++) {
                             Category cat = categories.get(i);
-                            category_ids.add(cat.id);
-                            category_names.add(cat.name);
-                            LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            titleParams.setMargins(0,10,0,5);
-                            LinearLayout titlelayout = new LinearLayout(RecipesActivity.this);
-                            titlelayout.setOrientation(LinearLayout.VERTICAL);
-                            titlelayout.setLayoutParams(titleParams);
-
-                            contentLayout.addView(titlelayout);
-
-                            TextView titleText = new TextView(RecipesActivity.this);
-                            LinearLayout.LayoutParams textparams = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                            );
-
-                            textparams.setMargins(0, 0, 10, 5);
-                            titleText.setLayoutParams(textparams);
-                            titleText.setTextSize(getResources().getDimension(R.dimen.recipe_title));
-                            titleText.setTextColor(getResources().getColor(R.color.dayTextColor));
-                            titleText.setText(category_names.get(i));
-                            titlelayout.addView(titleText);
-
-                            HorizontalScrollView scrollView = new HorizontalScrollView(RecipesActivity.this);
-                            titlelayout.addView(scrollView);
-
-                            LinearLayout.LayoutParams recipeParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            recipeParams.setMargins(1, 1, 1, 1);
-                            LinearLayout recipelayout = new LinearLayout(RecipesActivity.this);
-                            recipelayout.setOrientation(LinearLayout.HORIZONTAL);
-                            recipelayout.setLayoutParams(recipeParams);
-                            scrollView.addView(recipelayout);
-
-                            rest.RecipesByCategory(category_ids.get(i), text)
+                            rest.RecipesByCategory(cat.id, text)
                                     .enqueue(new Callback<Wrappers.Collection<Recipe>>() {
                                         @Override
                                         public void onResponse(Call<Wrappers.Collection<Recipe>> call, Response<Wrappers.Collection<Recipe>> response) {
                                             List<Recipe> recipes = response.body().data;
-                                            for (int j = 0; j < recipes.size(); j ++) {
-                                                Recipe recipe = recipes.get(j);
-                                                LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                cardParams.setMargins(30,5,5,5);
-                                                CardView card = new CardView(RecipesActivity.this);
-                                                card.setId(recipe.id);
-                                                card.setLayoutParams(cardParams);
-                                                recipelayout.addView(card);
-                                                card.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View view) {
-                                                        Intent intent=new Intent(RecipesActivity.this, RecipeSingleActivity.class);
-                                                        intent.putExtra("foodID", view.getId());
-                                                        intent.putExtra("activity", "recipes");
-                                                        startActivity(intent);
+                                            if (recipes.size() > 0) {
+                                                LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                titleParams.setMargins(0,10,0,5);
+                                                LinearLayout titlelayout = new LinearLayout(RecipesActivity.this);
+                                                titlelayout.setOrientation(LinearLayout.VERTICAL);
+                                                titlelayout.setLayoutParams(titleParams);
+
+                                                contentLayout.addView(titlelayout);
+
+                                                TextView titleText = new TextView(RecipesActivity.this);
+                                                LinearLayout.LayoutParams textparams = new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                );
+
+                                                textparams.setMargins(0, 0, 10, 5);
+                                                titleText.setLayoutParams(textparams);
+                                                titleText.setTextSize(getResources().getDimension(R.dimen.recipe_title));
+                                                titleText.setTextColor(getResources().getColor(R.color.dayTextColor));
+                                                titleText.setText(cat.name);
+                                                titlelayout.addView(titleText);
+
+                                                HorizontalScrollView scrollView = new HorizontalScrollView(RecipesActivity.this);
+                                                titlelayout.addView(scrollView);
+
+                                                LinearLayout.LayoutParams recipeParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                recipeParams.setMargins(1, 1, 1, 1);
+                                                LinearLayout recipelayout = new LinearLayout(RecipesActivity.this);
+                                                recipelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                                recipelayout.setLayoutParams(recipeParams);
+                                                scrollView.addView(recipelayout);
+                                                for (int j = 0; j < recipes.size(); j ++) {
+
+                                                    Recipe recipe = recipes.get(j);
+                                                    LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                    cardParams.setMargins(30,5,5,5);
+                                                    CardView card = new CardView(RecipesActivity.this);
+                                                    card.setId(recipe.id);
+                                                    card.setLayoutParams(cardParams);
+                                                    recipelayout.addView(card);
+                                                    card.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            Date date = Calendar.getInstance().getTime();
+                                                            Intent intent=new Intent(RecipesActivity.this, RecipeSingleActivity.class);
+                                                            intent.putExtra("foodID", view.getId());
+                                                            intent.putExtra("activity", "recipes");
+                                                            intent.putExtra("date", new SimpleDateFormat("yyyy-MM-dd").format(date));
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+
+                                                    LinearLayout.LayoutParams itemParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                    LinearLayout itemlayout = new LinearLayout(RecipesActivity.this);
+                                                    itemlayout.setOrientation(LinearLayout.VERTICAL);
+                                                    itemlayout.setLayoutParams(itemParams);
+                                                    card.addView(itemlayout);
+
+                                                    //-----bitmap--------//
+                                                    String storageUrl = Common.getInstance().getImageUrl();
+                                                    URL imageUrl = null;
+                                                    try {
+                                                        imageUrl = new URL(storageUrl + recipe.image);
+                                                    } catch (MalformedURLException e) {
+                                                        e.printStackTrace();
                                                     }
-                                                });
 
-                                                LinearLayout.LayoutParams itemParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                LinearLayout itemlayout = new LinearLayout(RecipesActivity.this);
-                                                itemlayout.setOrientation(LinearLayout.VERTICAL);
-                                                itemlayout.setLayoutParams(itemParams);
-                                                card.addView(itemlayout);
+                                                    //-------------------//
 
-                                                //-----bitmap--------//
-                                                String storageUrl = Common.getInstance().getImageUrl();//"http://zafeiraki.com/images/image_1624268588.png";
-                                                URL imageUrl = null;
-                                                try {
-                                                    imageUrl = new URL(storageUrl + recipe.image);
-                                                } catch (MalformedURLException e) {
-                                                    e.printStackTrace();
+                                                    LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(500, 350);
+                                                    ImageView imgView = new ImageView(RecipesActivity.this);
+                                                    imgView.setLayoutParams(imageParams);
+                                                    imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                                    imgView.setImageDrawable(getResources().getDrawable(R.drawable.back_recipe1));
+                                                    Picasso.get().load(String.valueOf(imageUrl)).resize(150, 0).into(imgView);
+                                                    itemlayout.addView(imgView);
+
+                                                    LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                    nameParams.setMargins(15, 5, 0, 0);
+                                                    String title = recipe.title;
+                                                    TextView nameText = new TextView(RecipesActivity.this);
+                                                    nameText.setLayoutParams(nameParams);
+                                                    nameText.setMaxLines(1);
+                                                    nameText.setTextColor(getResources().getColor(R.color.colorText1));
+                                                    nameText.setTextSize(14);
+                                                    if (title.length() > 25) {
+                                                        nameText.setText(title.substring(0, 25) + "...");
+                                                    }
+                                                    else {
+                                                        nameText.setText(title);
+                                                    }
+
+                                                    itemlayout.addView(nameText);
+
+                                                    LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                    pointParams.setMargins(15, 1, 0, 5);
+                                                    TextView pointText = new TextView(RecipesActivity.this);
+                                                    pointText.setLayoutParams(nameParams);
+                                                    pointText.setTextColor(getResources().getColor(R.color.colorText1));
+                                                    pointText.setTextSize(12);
+                                                    if (PersonalData.getInstance().getDietMode() == DietMode.POINT) {
+                                                        pointText.setText(String.format(Locale.US, "%.1f", recipe.points)+" points");
+                                                    }
+                                                    else {
+                                                        pointText.setText(String.format(Locale.US, "%.1f", recipe.units)+" units");
+                                                    }
+                                                    itemlayout.addView(pointText);
                                                 }
-
-                                                //-------------------//
-
-                                                LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(550, 400);
-                                                ImageView imgView = new ImageView(RecipesActivity.this);
-                                                imgView.setLayoutParams(imageParams);
-                                                imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                                imgView.setImageDrawable(getResources().getDrawable(R.drawable.back_recipe1));
-                                                Picasso.get().load(String.valueOf(imageUrl)).resize(300, 0).into(imgView);
-                                                itemlayout.addView(imgView);
-
-                                                LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                nameParams.setMargins(15, 5, 0, 0);
-                                                String title = recipe.title;
-                                                TextView nameText = new TextView(RecipesActivity.this);
-                                                nameText.setLayoutParams(nameParams);
-                                                nameText.setMaxLines(1);
-                                                nameText.setTextColor(getResources().getColor(R.color.colorText1));
-                                                nameText.setTextSize(10);
-                                                if (title.length() > 35) {
-                                                    nameText.setText(title.substring(0, 35) + "...");
-                                                }
-                                                else {
-                                                    nameText.setText(title);
-                                                }
-
-                                                itemlayout.addView(nameText);
-
-                                                LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                pointParams.setMargins(15, 1, 0, 5);
-                                                TextView pointText = new TextView(RecipesActivity.this);
-                                                pointText.setLayoutParams(nameParams);
-                                                pointText.setTextColor(getResources().getColor(R.color.colorText1));
-                                                pointText.setTextSize(7);
-                                                if (PersonalData.getInstance().getDietMode() == DietMode.POINT) {
-                                                    pointText.setText(String.format(Locale.US, "%.1f", recipe.points)+" points");
-                                                }
-                                                else {
-                                                    pointText.setText(String.format(Locale.US, "%.1f", recipe.units)+" units");
-                                                }
-                                                itemlayout.addView(pointText);
                                             }
+
                                         }
 
                                         @Override

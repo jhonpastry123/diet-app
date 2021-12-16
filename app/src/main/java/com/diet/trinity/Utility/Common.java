@@ -18,23 +18,5 @@ public class Common {
         return instance;
     }
 
-    public String getLoginUrl() {
-        return loginUrl;
-    }
-
-    public String getFoodUrl(){
-        return foodUrl;
-    }
-
-    public String getRegisterUrl(){
-        return registerUrl;
-    }
-
-    public String getSettingUrl(){return settingUrl;}
-
-    public String getRecipeUrl(){return recipeUrl;}
-
-    public String getSportUrl(){return sportUrl;}
-
     public String getImageUrl(){return imageUrl;}
 }

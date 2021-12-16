@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.diet.trinity.data.models.Category;
 import com.diet.trinity.data.models.FoodItem;
+import com.diet.trinity.data.models.GraphValue;
 import com.diet.trinity.data.models.Information;
 import com.diet.trinity.data.models.Meal;
 import com.diet.trinity.data.models.Recipe;
@@ -119,7 +120,8 @@ public interface REST {
             @Query("food_id") int food_id,
             @Query("recipe_id") int recipe_id,
             @Query("gram") float gram,
-            @Query("timing_id") int timing_id //[1=>'breakfast', 2=>'lunch', 3=>'dinner', 4=>'breakfast_snack', 5=>'lunch_snack', 6=>'dinner_snack']
+            @Query("timing_id") int timing_id, //[1=>'breakfast', 2=>'lunch', 3=>'dinner', 4=>'breakfast_snack', 5=>'lunch_snack', 6=>'dinner_snack']
+            @Query("date") String date
     );
 
     @Headers("Accept: application/json")
@@ -140,4 +142,27 @@ public interface REST {
 
     @DELETE("meals/{id}")
     Call<Boolean> MealsDelete(@Path("id") int id);
+
+    @Headers("Accept: application/json")
+    @POST("informations/save_dietmode")
+    Call<Boolean> SaveDietMode(
+            @Query("diet_mode") int diet_mode
+    );
+
+    @Headers("Accept: application/json")
+    @POST("informations/save_weight")
+    Call<Boolean> SaveWeight(
+            @Query("weight") float weight
+    );
+
+    @Headers("Accept: application/json")
+    @POST("informations/save_water")
+    Call<Boolean> SaveWater(
+            @Query("water") int water
+    );
+
+    @GET("informations/get_graph_values")
+    Call<Wrappers.Collection<GraphValue>> GetGraphValues(
+            @Query("date") @Nullable String date
+    );
 }
