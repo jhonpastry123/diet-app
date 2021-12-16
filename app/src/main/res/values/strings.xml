@@ -1,6 +1,6 @@
 <resources>
-<!--    <string name="server_url">http://zafeiraki.com/api/</string>-->
-    <string name="server_url">http://192.168.109.112:8000/api/</string>
+    <string name="server_url">http://zafeiraki.com/api/</string>
+<!--    <string name="server_url">http://192.168.109.112:8000/api/</string>-->
     <string name="empty_fooditems">No fooditems found to display.</string>
     <string name="app_name">Trinity</string>
     <string name="sharing_text">Your sharing text goes here…</string>

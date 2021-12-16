@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,11 +30,13 @@ import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
 import com.diet.trinity.Utility.Global;
 import com.diet.trinity.data.api.REST;
+import com.diet.trinity.data.common.Goal;
 import com.diet.trinity.data.common.PersonalData;
 import com.diet.trinity.data.models.Information;
 import com.diet.trinity.data.models.Sport;
 import com.diet.trinity.data.models.User;
 import com.diet.trinity.data.models.Wrappers;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
@@ -70,6 +73,9 @@ public class SettingActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     TextView txt1, txt2, txt3, txtGoal;
     Spinner dropdown1, dropdown2, dropdown3, meal_dropdown, goal_dropdown;
+    Button btnLogout;
+
+    TextView weekly_support;
 
     int sport_type1 = 0, sport_type2 = 0, sport_type3 = 0, sport_time1 = 0, sport_time2 = 0, sport_time3 = 0;
     String sport_name1="", sport_name2="", sport_name3="";
@@ -139,6 +145,26 @@ public class SettingActivity extends AppCompatActivity {
 
         mCalendarView = findViewById(R.id.calendarView);
         mCalendarView.setFocusedMonthDateColor(Color.MAGENTA);
+        btnLogout = findViewById(R.id.btnLogout);
+
+        weekly_support = findViewById(R.id.weekly_support1);
+
+        float monthly_support_reduce = (float) (PersonalData.getInstance().getInitial_weight() * 0.04);
+        float weekly_support_reduce = monthly_support_reduce / 4;
+        String month_support = String.format(Locale.US, "%.1f", monthly_support_reduce);
+        String week_support = String.format(Locale.US, "%.1f", weekly_support_reduce);
+
+        if(PersonalData.getInstance().getGoal() == Goal.LOSE){
+            weekly_support.setVisibility(View.VISIBLE);
+            weekly_support.setText("Η ιδανική μηνιαία απώλεια βάρους για εσάς είναι: " + month_support + " Kg\n" +
+                    "Καλό θα ήταν ο εβδομαδιαίος στόχος σας να μην ξεπερνάει τα " + week_support + " Kg");
+        }
+        else if (PersonalData.getInstance().getGoal() == Goal.GAIN) {
+            weekly_support.setVisibility(View.GONE);
+        }
+        else if (PersonalData.getInstance().getGoal() == Goal.STAY) {
+            weekly_support.setVisibility(View.GONE);
+        }
     }
     private void addEventListener() {
         findViewById(R.id.imgBack).setOnClickListener(new View.OnClickListener() {
@@ -383,6 +409,15 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Prefs.clear();
+                Intent intent = new Intent(SettingActivity.this, GoalActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

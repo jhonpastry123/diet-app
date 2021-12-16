@@ -1197,11 +1197,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 Global.pasta_num += meal.pasta_num;
                 Global.legumes_num += meal.legumes_num;
                 Global.oily_num += meal.oily_num;
-                Global.junk_img_num += meal.junk_img_num;
                 Global.meat_num += meal.meat_num;
-                Global.oily_img_num += meal.oily_img_num;
+                Global.junk_img_num += meal.junk_img_num;
             }
 
+            Global.oily_img_num += meal.oily_img_num;
             Global.fruit_num += meal.fruit_num;
         }
         if (bf) {

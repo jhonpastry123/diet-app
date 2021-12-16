@@ -224,6 +224,11 @@ public class RecipeSingleActivity extends AppCompatActivity{
             public void onClick(View v) {
                 //File file = saveBitMap(RecipieSingleActivity.this, relativeLayout);
                 String fileStamp = new SimpleDateFormat("yyyymmdd_HHmmss").format(new Date());
+                ProgressDialog mProgressDialog = new ProgressDialog(RecipeSingleActivity.this);
+                mProgressDialog.setTitle("Loading...");
+                mProgressDialog.setIndeterminate(false);
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
                 layoutToImage("recipe"+fileStamp);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -231,8 +236,9 @@ public class RecipeSingleActivity extends AppCompatActivity{
                     public void run() {
                         imageToPDF("recipe"+fileStamp);
                         deleteImage("recipe"+fileStamp);
+                        mProgressDialog.dismiss();
                     }
-                }, 10000);
+                }, 5000);
 
 
             }

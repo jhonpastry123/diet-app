@@ -126,6 +126,14 @@
                 android:layout_marginLeft="@dimen/space_30"
                 android:layout_marginRight="@dimen/space_30"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/weekly_support"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:text="TextView" />
+
                 <com.warkiz.widget.IndicatorSeekBar
                     android:id="@+id/seekWeeklyReduce"
                     android:layout_width="match_parent"

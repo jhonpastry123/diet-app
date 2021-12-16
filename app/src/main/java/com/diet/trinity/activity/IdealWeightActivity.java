@@ -19,6 +19,8 @@ import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
 
+import java.util.Locale;
+
 public class IdealWeightActivity extends AppCompatActivity {
 
     EditText _weight;
@@ -26,6 +28,7 @@ public class IdealWeightActivity extends AppCompatActivity {
     TextView _weeklyGoalText;
     ImageView _warningImage;
     IndicatorSeekBar _weeklyReduce;
+    TextView weekly_support;
     int mWeeklyReduce = 300;
     float mGoalWeight;
     int mIdealWeight;
@@ -41,6 +44,7 @@ public class IdealWeightActivity extends AppCompatActivity {
         _warningImage = findViewById(R.id.imgWarning);
         _weeklyReduce = findViewById(R.id.seekWeeklyReduce);
         _weeklyGoalText = findViewById(R.id.weekly_goal_txt);
+        weekly_support = findViewById(R.id.weekly_support);
 
         addEventListener();
         initView();
@@ -49,6 +53,10 @@ public class IdealWeightActivity extends AppCompatActivity {
 
     private void initView(){
         PersonalData.getInstance().getIdeal_weight();
+        float monthly_support_reduce = (float) (PersonalData.getInstance().getInitial_weight() * 0.04);
+        float weekly_support_reduce = monthly_support_reduce / 4;
+        String month_support = String.format(Locale.US, "%.1f", monthly_support_reduce);
+        String week_support = String.format(Locale.US, "%.1f", weekly_support_reduce);
         mIdealWeight = (int) Math.round(Math.pow(PersonalData.getInstance().getHeight(), 2) * 18.5 / 10000);
         mIdealMaxWeight = (int) Math.round(Math.pow(PersonalData.getInstance().getHeight(), 2) * 24.9 / 10000);
         TextView _idealWeight = findViewById(R.id.txtIdealWeight);
@@ -56,13 +64,18 @@ public class IdealWeightActivity extends AppCompatActivity {
 
         if(PersonalData.getInstance().getGoal() == Goal.LOSE){
             _weeklyGoalText.setText("Εβδομαδιαίος Στόχος Απώλειας Βάρους");
+            weekly_support.setVisibility(View.VISIBLE);
+            weekly_support.setText("Η ιδανική μηνιαία απώλεια βάρους για εσάς είναι: " + month_support + " Kg\n" +
+                    "Καλό θα ήταν ο εβδομαδιαίος στόχος σας να μην ξεπερνάει τα " + week_support + " Kg");
         }
         else if (PersonalData.getInstance().getGoal() == Goal.GAIN) {
             _weeklyGoalText.setText("Εβδομαδιαίος Στόχος Αύξησης Βάρους");
+            weekly_support.setVisibility(View.GONE);
         }
         else if (PersonalData.getInstance().getGoal() == Goal.STAY) {
             _weeklyGoalText.setText("");
             _weeklyReduce.setVisibility(View.GONE);
+            weekly_support.setVisibility(View.GONE);
         }
     }
 

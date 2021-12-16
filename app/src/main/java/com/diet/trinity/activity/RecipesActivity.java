@@ -177,7 +177,7 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
 
                                                     //-------------------//
 
-                                                    LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(500, 350);
+                                                    LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(565, 350);
                                                     ImageView imgView = new ImageView(RecipesActivity.this);
                                                     imgView.setLayoutParams(imageParams);
                                                     imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -185,16 +185,17 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
                                                     Picasso.get().load(String.valueOf(imageUrl)).resize(150, 0).into(imgView);
                                                     itemlayout.addView(imgView);
 
-                                                    LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                    LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(550, LinearLayout.LayoutParams.WRAP_CONTENT);
                                                     nameParams.setMargins(15, 5, 0, 0);
                                                     String title = recipe.title;
                                                     TextView nameText = new TextView(RecipesActivity.this);
                                                     nameText.setLayoutParams(nameParams);
-                                                    nameText.setMaxLines(1);
+                                                    nameText.setMaxLines(2);
+                                                    nameText.setLines(2);
                                                     nameText.setTextColor(getResources().getColor(R.color.colorText1));
-                                                    nameText.setTextSize(14);
-                                                    if (title.length() > 25) {
-                                                        nameText.setText(title.substring(0, 25) + "...");
+                                                    nameText.setTextSize(12);
+                                                    if (title.length() > 70) {
+                                                        nameText.setText(title.substring(0, 70) + "...");
                                                     }
                                                     else {
                                                         nameText.setText(title);
@@ -207,7 +208,7 @@ public class RecipesActivity extends AppCompatActivity implements SearchView.OnQ
                                                     TextView pointText = new TextView(RecipesActivity.this);
                                                     pointText.setLayoutParams(nameParams);
                                                     pointText.setTextColor(getResources().getColor(R.color.colorText1));
-                                                    pointText.setTextSize(12);
+                                                    pointText.setTextSize(10);
                                                     if (PersonalData.getInstance().getDietMode() == DietMode.POINT) {
                                                         pointText.setText(String.format(Locale.US, "%.1f", recipe.points)+" points");
                                                     }
