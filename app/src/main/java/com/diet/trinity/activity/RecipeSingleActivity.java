@@ -318,33 +318,33 @@ public class RecipeSingleActivity extends AppCompatActivity{
                         }
 
                         Adapter adapter = meal_dropdown.getAdapter();
-                        int n = adapter.getCount();
-
-                        for (int i=0; i< n; i ++) {
-                            meal_list.add(adapter.getItem(i).toString());
-                        }
-
-                        if (act.equals("recipes")) {
-                            meal_list.clear();
-                            switch (recipe.categories_id) {
-                                case 4:
-                                    meal_list.add(adapter.getItem(4).toString());
-                                    meal_list.add(adapter.getItem(5).toString());
-                                    meal_list.add(adapter.getItem(6).toString());
-                                    collapse = true;
-                                    break;
-                                default:
-                                    meal_list.add(adapter.getItem(recipe.categories_id).toString());
-                                    mCategory = recipe.categories_id;
-                                    break;
-                            }
-                        } else if (act.equals("search")){
-                            meal_list.clear();
-                            meal_list.add(adapter.getItem(Global.timing_id).toString());
-                        }
-
-                        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(RecipeSingleActivity.this, R.layout.spinner_dropdown_item, meal_list);
-                        meal_dropdown.setAdapter(spinnerArrayAdapter);
+//                        int n = adapter.getCount();
+//
+//                        for (int i=0; i< n; i ++) {
+//                            meal_list.add(adapter.getItem(i).toString());
+//                        }
+//
+//                        if (act.equals("recipes")) {
+//                            meal_list.clear();
+//                            switch (recipe.categories_id) {
+//                                case 4:
+//                                    meal_list.add(adapter.getItem(4).toString());
+//                                    meal_list.add(adapter.getItem(5).toString());
+//                                    meal_list.add(adapter.getItem(6).toString());
+//                                    collapse = true;
+//                                    break;
+//                                default:
+//                                    meal_list.add(adapter.getItem(recipe.categories_id).toString());
+//                                    mCategory = recipe.categories_id;
+//                                    break;
+//                            }
+//                        } else if (act.equals("search")){
+//                            meal_list.clear();
+//                            meal_list.add(adapter.getItem(Global.timing_id).toString());
+//                        }
+//
+//                        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(RecipeSingleActivity.this, R.layout.spinner_dropdown_item, meal_list);
+//                        meal_dropdown.setAdapter(spinnerArrayAdapter);
 
                         mProgressDialog.dismiss();
                     }

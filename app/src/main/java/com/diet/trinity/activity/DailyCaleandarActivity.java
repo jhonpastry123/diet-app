@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -62,9 +63,7 @@ import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -77,9 +76,6 @@ import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.pixplicity.easyprefs.library.Prefs;
-
-import net.danlew.android.joda.JodaTimeAndroid;
-
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 import java.io.ByteArrayOutputStream;
@@ -96,11 +92,14 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class DailyCaleandarActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
     private final static String default_notification_channel_id = "default" ;
 
+    Button barcode;
     /* First Block Items */
     TextView txtDate, txtWeek;
     ImageView imgCalendar;
@@ -231,10 +230,37 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         scheduleNotification(getNotification( "ΩΡΑ ΓΙΑ ΝΕΡΟ!","Παρακαλώ, πιείτε νερό!" ) , 13 );
         scheduleNotification(getNotification( "ΔΕΙΠΝΟ","Δύο ώρες πριν από τον ύπνο δεν τρώμε μεγάλα γεύματα!" ) , 20 );
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // if the intentResult is null then
+        // toast a message as "cancelled"
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+            } else {
+                // if the intentResult is not null we'll set
+                // the content and format of scan message
+                Log.e("Contents", intentResult.getContents());
+                Toast.makeText(getBaseContext(), "Barcode : "+intentResult.getContents(), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.barcode:
+                IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+                intentIntegrator.setPrompt("Scan a barcode or QR Code");
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.initiateScan();
+                break;
             case R.id.imgCalendar:
                 showDatePickerDlg();
                 break;
@@ -540,6 +566,7 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 });
     }
     private void addEventListener() {
+        barcode.setOnClickListener(this);
         imgCalendar.setOnClickListener(this);
 
         linPoint.setOnClickListener(this);
@@ -1395,6 +1422,7 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         setSettings(mSelectedDate);
     }
     public void initView() {
+        barcode = findViewById(R.id.barcode);
         txtDate = findViewById(R.id.txtDate);
         txtWeek = findViewById(R.id.txtWeek);
         imgCalendar = findViewById(R.id.imgCalendar);
