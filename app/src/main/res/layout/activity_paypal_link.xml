@@ -36,6 +36,14 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/p2" />
 
+        <ImageView
+            android:id="@+id/GoldPlusPayNow"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/p3" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,5 +1,8 @@
 package com.diet.trinity.Utility;
 
+import com.diet.trinity.data.models.FoodItem;
+import com.diet.trinity.data.models.FoodValue;
+
 public class Global {
     static public float points = 0;
     static public float units = 0;
@@ -82,6 +85,18 @@ public class Global {
     static public Boolean dProtein = false;
     static public Boolean dFat = false;
 
+    static public String food_name = "";
+    static public Integer[] food_categories_id = {};
+    static public String food_categories = "";
+    static public double carbon = 0;
+    static public double protein = 0;
+    static public double fat = 0;
+    static public double portion_in_grams = 0;
+    static public double kcal = 0;
+    static public double serving_size = 0;
+    static public String serving_prefix = "";
+    static public String barcode = "";
+    static public FoodValue[] food_values = {};
 
     static public float gram = 0;
 }

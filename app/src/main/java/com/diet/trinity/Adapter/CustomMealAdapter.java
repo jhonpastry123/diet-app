@@ -1,6 +1,7 @@
 package com.diet.trinity.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.DataSetObservable;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.diet.trinity.MainApplication;
 import com.diet.trinity.R;
@@ -83,23 +86,43 @@ public class CustomMealAdapter extends BaseAdapter  {
         holder.id_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                REST rest = MainApplication.getContainer().get(REST.class);
-                rest.MealsDelete(v.getId())
-                        .enqueue(new Callback<Boolean>() {
-                            @Override
-                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                Boolean flag = response.body();
-                                if (flag) {
-                                    FoodList.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            }
+                AlertDialog.Builder alert = new AlertDialog.Builder(holder.id_btn.getContext());
+                alert.setTitle("Delete");
+                alert.setMessage("Are you sure you want to delete?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onFailure(Call<Boolean> call, Throwable t) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        });
+                        REST rest = MainApplication.getContainer().get(REST.class);
+                        rest.MealsDelete(v.getId())
+                                .enqueue(new Callback<Boolean>() {
+                                    @Override
+                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                        Boolean flag = response.body();
+                                        if (flag) {
+                                            FoodList.remove(position);
+                                            notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Boolean> call, Throwable t) {
+
+                                    }
+                                });
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
             }
         });
         return convertView;

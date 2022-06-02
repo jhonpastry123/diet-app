@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,22 +30,45 @@ public class LoginActivity extends AppCompatActivity {
     ImageButton loginBtn;
     String stEmail, stPass, token;
     ImageView   img_back;
+    TextView txForgot;
     LinearLayout goRegister;
 
     //----- loading dialog -----//
     ProgressDialog mProgressDialog;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        initView();
+        addEventListener();
+    }
 
-        final String sTrial = getIntent().getStringExtra("activity");
-
+    private void initView() {
         etEmail = findViewById(R.id.EmailAddress);
         etPass = findViewById(R.id.Password);
         loginBtn = findViewById(R.id.RegisterButton);
+        goRegister = findViewById(R.id.goRegister);
+        img_back = findViewById(R.id.imgBack);
+        txForgot = findViewById(R.id.forgot);
+    }
+
+    private void addEventListener() {
+        final String sTrial = getIntent().getStringExtra("activity");
+        switch (sTrial) {
+            case "goal" :
+                if (goRegister.getVisibility() == View.VISIBLE)
+                    goRegister.setVisibility(View.GONE);
+                break;
+            case "welcome":
+            case "register":
+            default:
+                if (goRegister.getVisibility() == View.GONE)
+                    goRegister.setVisibility(View.VISIBLE);
+                break;
+        }
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,13 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (stEmail.isEmpty() || stPass.isEmpty()) {
                     Toast.makeText(LoginActivity.this, getResources().getString(R.string.entry_info_login), Toast.LENGTH_SHORT).show();
                     return;
-                }else {
+                } else if (!(stEmail.matches(emailPattern))) {
+                    Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+                } else {
                     ApiLogin();
                 }
             }
         });
-
-        goRegister = findViewById(R.id.goRegister);
         goRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,26 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        switch (sTrial) {
-            case "goal" :
-                if (goRegister.getVisibility() == View.VISIBLE)
-                    goRegister.setVisibility(View.GONE);
-                break;
-            case "welcome":
-                if (goRegister.getVisibility() == View.GONE)
-                    goRegister.setVisibility(View.VISIBLE);
-                break;
-            case "register":
-                if (goRegister.getVisibility() == View.GONE)
-                    goRegister.setVisibility(View.VISIBLE);
-                break;
-            default:
-                if (goRegister.getVisibility() == View.GONE)
-                    goRegister.setVisibility(View.VISIBLE);
-        }
-
-        img_back = findViewById(R.id.imgBack);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +111,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 startActivity(intent);
                 finish();
+            }
+        });
+        txForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

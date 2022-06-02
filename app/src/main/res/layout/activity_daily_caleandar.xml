@@ -63,14 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/barcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Barcode" />
-            </LinearLayout>
+                android:orientation="vertical"/>
 
             <LinearLayout
                 android:id="@+id/hiddenList"
@@ -473,14 +466,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastProtein"
+                                            android:id="@+id/txtBreakfastCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastCarbon"
+                                            android:id="@+id/txtBreakfastProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -503,14 +496,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastProteinGram"
+                                            android:id="@+id/txtBreakfastCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastCarbonGram"
+                                            android:id="@+id/txtBreakfastProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -645,14 +638,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastSnackProtein"
+                                            android:id="@+id/txtBreakfastSnackCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastSnackCarbon"
+                                            android:id="@+id/txtBreakfastSnackProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -675,14 +668,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastSnackProteinGram"
+                                            android:id="@+id/txtBreakfastSnackCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtBreakfastSnackCarbonGram"
+                                            android:id="@+id/txtBreakfastSnackProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -815,14 +808,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtLunchProtein"
+                                            android:id="@+id/txtLunchCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtLunchCarbon"
+                                            android:id="@+id/txtLunchProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -845,14 +838,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtLunchProteinGram"
+                                            android:id="@+id/txtLunchCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtLunchCarbonGram"
+                                            android:id="@+id/txtLunchProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -985,14 +978,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtLunchSnackProtein"
+                                            android:id="@+id/txtLunchSnackCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtLunchSnackCarbon"
+                                            android:id="@+id/txtLunchSnackProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1015,14 +1008,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtLunchSnackProteinGram"
+                                            android:id="@+id/txtLunchSnackCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtLunchSnackCarbonGram"
+                                            android:id="@+id/txtLunchSnackProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1153,14 +1146,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtDinnerProtein"
+                                            android:id="@+id/txtDinnerCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtDinnerCarbon"
+                                            android:id="@+id/txtDinnerProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1183,14 +1176,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtDinnerProteinGram"
+                                            android:id="@+id/txtDinnerCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtDinnerCarbonGram"
+                                            android:id="@+id/txtDinnerProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1324,14 +1317,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtDinnerSnackProtein"
+                                            android:id="@+id/txtDinnerSnackCarbon"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtDinnerSnackCarbon"
+                                            android:id="@+id/txtDinnerSnackProtein"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1354,14 +1347,14 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/txtDinnerSnackProteinGram"
+                                            android:id="@+id/txtDinnerSnackCarbonGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
                                             android:textSize="10sp" />
 
                                         <TextView
-                                            android:id="@+id/txtDinnerSnackCarbonGram"
+                                            android:id="@+id/txtDinnerSnackProteinGram"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text=""
@@ -1861,7 +1854,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/space_5">
+                        android:layout_marginTop="@dimen/space_5"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"

@@ -51,13 +51,27 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/imgRemoveMeal"
+            android:layout_width="@dimen/space_20"
+            android:layout_height="@dimen/space_20"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_weight="0"
+            android:onClick="selectGram"
+            android:rotation="45"
+            android:src="@drawable/ic_add"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageView
             android:id="@+id/imgAddMeal"
             android:layout_width="@dimen/space_20"
             android:layout_height="@dimen/space_20"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/space_30"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_weight="0"
             android:onClick="selectGram"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </LinearLayout>
 </LinearLayout>

@@ -20,6 +20,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -30,6 +31,13 @@ public interface REST {
     Call<Token> login(
             @Field("email") String email,
             @Field("password") String password
+    );
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("reset_password")
+    Call<Token> resetPassword(
+            @Field("email") String email
     );
 
     @Headers("Accept: application/json")
@@ -67,6 +75,22 @@ public interface REST {
     );
 
     @Headers("Accept: application/json")
+    @POST("fooditems")
+    Call<Boolean> FoodItemStore(
+            @Query("food_name") String food_name,
+            @Query("carbon") double carbon,
+            @Query("protein") double protein,
+            @Query("fat") double fat,
+            @Query("portion_in_grams") double portion_in_grams,
+            @Query("kcal") double kcal,
+            @Query("serving_size") double serving_size,
+            @Query("serving_prefix") String serving_prefix,
+            @Query("user_id") int user_id,
+            @Query("barcode") String barcode,
+            @Query("food_categories_id") String food_categories_id
+    );
+
+    @Headers("Accept: application/json")
     @GET("informations/getInformation")
     Call<Wrappers.Single<Information>> getInformation(
             @Query("date") String date
@@ -80,6 +104,7 @@ public interface REST {
     @GET("fooditems")
     Call<Wrappers.Paginated<FoodItem>> FoodItemsIndex(
             @Query("page") int page,
+            @Query("user_id") @Nullable int user_id,
             @Query("q") @Nullable String q
     );
 
@@ -92,7 +117,18 @@ public interface REST {
     Call<Wrappers.Paginated<Recipe>> RecipesIndex(
             @Query("page") int page,
             @Query("q") @Nullable String q,
-            @Query("category") @Nullable int category
+            @Query("category") @Nullable int category,
+            @Query("user_id") int user_id
+    );
+
+    @Headers("Accept: application/json")
+    @POST("recipes")
+    Call<Boolean> RecipeStore(
+            @Query("user_id") int id,
+            @Query("title") String title,
+            @Query("categories_id") int categories_id,
+            @Query("food_id") String food_id,
+            @Query("food_amount") String food_amount
     );
 
     @Headers("Accept: application/json")
@@ -109,6 +145,9 @@ public interface REST {
 
     @GET("categories")
     Call<Wrappers.Collection<Category>> CategoriesIndex();
+
+    @GET("food_categories")
+    Call<Wrappers.Collection<Category>> FoodCategoriesIndex();
 
     @GET("sports")
     Call<Wrappers.Collection<Sport>> SportsIndex();
@@ -142,6 +181,12 @@ public interface REST {
 
     @DELETE("meals/{id}")
     Call<Boolean> MealsDelete(@Path("id") int id);
+
+    @DELETE("fooditems/{id}")
+    Call<Boolean> FoodItemDelete(@Path("id") int id);
+
+    @DELETE("recipes/{id}")
+    Call<Boolean> RecipeDelete(@Path("id") int id);
 
     @Headers("Accept: application/json")
     @POST("informations/save_dietmode")

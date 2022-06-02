@@ -38,7 +38,7 @@ public class FoodItemDataSource extends PageKeyedDataSource<Integer, FoodItem> {
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, FoodItem> callback) {
         state.postValue(LOADING);
         REST rest = MainApplication.getContainer().get(REST.class);
-        rest.FoodItemsIndex(1, mParams.getString("q"))
+        rest.FoodItemsIndex(1, 0, mParams.getString("q"))
                 .enqueue(new Callback<Wrappers.Paginated<FoodItem>>() {
                     @Override
                     public void onResponse(@Nullable Call<Wrappers.Paginated<FoodItem>> call, @Nullable Response<Wrappers.Paginated<FoodItem>> response) {
@@ -74,7 +74,7 @@ public class FoodItemDataSource extends PageKeyedDataSource<Integer, FoodItem> {
         state.postValue(LOADING);
         REST rest = MainApplication.getContainer().get(REST.class);
         int user = mParams.getInt(EXTRA_USER);
-        rest.FoodItemsIndex(params.key, mParams.getString("q"))
+        rest.FoodItemsIndex(params.key, 0, mParams.getString("q"))
                 .enqueue(new Callback<Wrappers.Paginated<FoodItem>>() {
 
                     @Override

@@ -67,13 +67,11 @@ public class TrialNotifyActivity extends AppCompatActivity {
             mRecyclerView.setExpandedViewHolderFactory(SampleExpandedViewHolder.Factory.create(R.layout.sample_layout_expanded), mListener);
             mRecyclerView.setCollapsedViewHolderFactory(
                     SampleCollapsedViewHolder.Factory.create(R.layout.sample_layout_collapsed),
-                    mListener,
-                    VIEW_TYPE_1
+                    mListener
             );
             mRecyclerView.setExpandedViewHolderFactory(
                     SampleExpandedViewHolder.Factory.create(R.layout.sample_layout_expanded),
-                    mListener,
-                    VIEW_TYPE_1
+                    mListener
             );
             if (savedInstanceState != null) {
                 mRecyclerView.setExpandedItemId(savedInstanceState.getLong(KEY_EXPANDED_ID, Item.INVALID_ID));
@@ -121,7 +119,7 @@ public class TrialNotifyActivity extends AppCompatActivity {
         final ImageView next = findViewById(R.id.imgNext2);
 
         next.setEnabled(false);
-        next.setAlpha(0.5f);
+        next.setAlpha(0.3f);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +138,7 @@ public class TrialNotifyActivity extends AppCompatActivity {
                     }
                     else {
                         next.setEnabled(false);
-                        next.setAlpha(0.5f);
+                        next.setAlpha(0.3f);
                     }
                 }
             }
@@ -161,7 +159,7 @@ public class TrialNotifyActivity extends AppCompatActivity {
         for (; index < dataCount; index++) {
             String full_content = content[index];
             itemModel = SampleItem.create(title[index], full_content);
-            itemHolder = new ExpandableItemHolder(itemModel, VIEW_TYPE_1);
+            itemHolder = new ExpandableItemHolder(itemModel);
             itemHolders.add(itemHolder);
         }
 

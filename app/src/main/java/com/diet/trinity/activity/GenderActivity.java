@@ -28,7 +28,7 @@ public class GenderActivity extends AppCompatActivity {
         _male.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setAlpha(0.5f);
+                v.setAlpha(0.3f);
                 _female.setAlpha(1.0f);
 
                 PersonalData.getInstance().setGender(Gender.MALE);
@@ -41,7 +41,7 @@ public class GenderActivity extends AppCompatActivity {
         _female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setAlpha(0.5f);
+                v.setAlpha(0.3f);
                 _male.setAlpha(1.0f);
 
                 PersonalData.getInstance().setGender(Gender.FEMALE);

@@ -33,41 +33,53 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText etEmail, etPass;
-    String stEmail, stPass;
+    EditText etEmail, etPass, etPassConfirm;
+    String stEmail, stPass, stPassConfirm;
     ImageButton register_btn;
     ProgressDialog mProgressDialog;
     ImageView   img_back;
 
     LinearLayout goLogin;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    TextView already_account, passWarning;
+    TextView already_account, passWarning, passConfirmWarning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        initView();
+        addEventListener();
+    }
+
+
+    private void initView() {
         register_btn = findViewById(R.id.RegisterButton);
         etEmail = findViewById(R.id.EmailAddress);
         etPass = findViewById(R.id.Password);
+        etPassConfirm = findViewById(R.id.PasswordConfirm);
         already_account = findViewById(R.id.alreadyaccount);
+        passWarning = findViewById(R.id.passWarning);
+        passConfirmWarning = findViewById(R.id.passConfirmWarning);
+
+        goLogin = findViewById(R.id.goLogin);
+        img_back = findViewById(R.id.imgBack);
+    }
+
+    private void addEventListener() {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signupProcessing();
             }
-
         });
-        passWarning = findViewById(R.id.passWarning);
 
-        goLogin = findViewById(R.id.goLogin);
         goLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        img_back = findViewById(R.id.imgBack);
+
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,17 +131,51 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+        etPassConfirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String user_pass = etPass.getText().toString();
+                String user_pass_confirm = etPassConfirm.getText().toString();
+
+                if(user_pass.equals(user_pass_confirm))
+                {
+                    passConfirmWarning.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    passConfirmWarning.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void signupProcessing() {
         stEmail = etEmail.getText().toString();
         stPass = etPass.getText().toString();
+        stPassConfirm = etPassConfirm.getText().toString();
 
         if (TextUtils.isEmpty(stEmail)) {
             Toast.makeText(RegisterActivity.this, "User Email Field is Empty!", Toast.LENGTH_SHORT).show();
             return;
         } else if (TextUtils.isEmpty(stPass)) {
             Toast.makeText(RegisterActivity.this, "User password Field is Empty!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (stPass.length() < 6) {
+            Toast.makeText(RegisterActivity.this, "User password length have to be at least 6 letters!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (TextUtils.isEmpty(stPassConfirm)) {
+            Toast.makeText(RegisterActivity.this, "User password Confirm Field is Empty!", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (!(stEmail.matches(emailPattern))) {

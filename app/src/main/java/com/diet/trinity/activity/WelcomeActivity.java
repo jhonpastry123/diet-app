@@ -74,7 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
         _iconPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _iconPoint.setAlpha(0.5f);
+                _iconPoint.setAlpha(0.3f);
                 _iconUnit.setAlpha(1.0f);
 
                 PersonalData.getInstance().setDietMode(DietMode.POINT);
@@ -85,7 +85,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 _iconPoint.setAlpha(1.0f);
-                _iconUnit.setAlpha(0.5f);
+                _iconUnit.setAlpha(0.3f);
                 PersonalData.getInstance().setDietMode(DietMode.UNIT);
             }
         });

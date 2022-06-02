@@ -2,7 +2,7 @@ package com.diet.trinity.Utility;
 
 public class Common {
 //    private String baseUrl = "http://zafeiraki.com";
-    private String baseUrl = "http://192.168.107.140:8000";
+    private String baseUrl = "http://192.168.107.81:8000";
     private String registerUrl = baseUrl + "/api/register";
     private String loginUrl = baseUrl + "/api/login";
     private String foodUrl = baseUrl + "/api/fooditems";

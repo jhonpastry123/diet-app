@@ -107,16 +107,8 @@ public class PolicyActivity extends AppCompatActivity {
         {
             mRecyclerView.setCollapsedViewHolderFactory(SampleCollapsedViewHolder.Factory.create(R.layout.sample_layout_collapsed), mListener);
             mRecyclerView.setExpandedViewHolderFactory(SampleExpandedViewHolder.Factory.create(R.layout.sample_layout_expanded), mListener);
-            mRecyclerView.setCollapsedViewHolderFactory(
-                    SampleCollapsedViewHolder.Factory.create(R.layout.sample_layout_collapsed),
-                    mListener,
-                    VIEW_TYPE_1
-            );
-            mRecyclerView.setExpandedViewHolderFactory(
-                    SampleExpandedViewHolder.Factory.create(R.layout.sample_layout_expanded),
-                    mListener,
-                    VIEW_TYPE_1
-            );
+            mRecyclerView.setCollapsedViewHolderFactory(SampleCollapsedViewHolder.Factory.create(R.layout.sample_layout_collapsed), mListener);
+            mRecyclerView.setExpandedViewHolderFactory(SampleExpandedViewHolder.Factory.create(R.layout.sample_layout_expanded), mListener);
             if (savedInstanceState != null) {
                 mRecyclerView.setExpandedItemId(savedInstanceState.getLong(KEY_EXPANDED_ID, Item.INVALID_ID));
             }
@@ -161,7 +153,7 @@ public class PolicyActivity extends AppCompatActivity {
             content = getResources().getStringArray(R.array.listBronzeContent);
         }
 
-        if (membership == 2) {
+        if (membership == 2 || membership == 3) {
             title = getResources().getStringArray(R.array.listTitle);
             content = getResources().getStringArray(R.array.listContent);
         }
@@ -178,7 +170,7 @@ public class PolicyActivity extends AppCompatActivity {
                 full_content = full_content + getResources().getString(R.string.string12b);
 
             itemModel = SampleItem.create(title[index], full_content);
-            itemHolder = new ExpandableItemHolder(itemModel, VIEW_TYPE_1);
+            itemHolder = new ExpandableItemHolder(itemModel);
             itemHolders.add(itemHolder);
         }
 

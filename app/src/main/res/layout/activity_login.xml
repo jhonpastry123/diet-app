@@ -100,6 +100,16 @@
                 android:textCursorDrawable="@drawable/cursor"
                 />
 
+            <TextView
+                android:id="@+id/forgot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0"
+                android:text="Ξεχάσατε τον κωδικό?"
+                android:textColor="#0083E6"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:id="@+id/goRegister"
                 android:layout_width="wrap_content"

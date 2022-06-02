@@ -99,7 +99,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
     private final static String default_notification_channel_id = "default" ;
 
-    Button barcode;
     /* First Block Items */
     TextView txtDate, txtWeek;
     ImageView imgCalendar;
@@ -231,41 +230,16 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         scheduleNotification(getNotification( "ΔΕΙΠΝΟ","Δύο ώρες πριν από τον ύπνο δεν τρώμε μεγάλα γεύματα!" ) , 20 );
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        // if the intentResult is null then
-        // toast a message as "cancelled"
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-            } else {
-                // if the intentResult is not null we'll set
-                // the content and format of scan message
-                Log.e("Contents", intentResult.getContents());
-                Toast.makeText(getBaseContext(), "Barcode : "+intentResult.getContents(), Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.barcode:
-                IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-                intentIntegrator.setPrompt("Scan a barcode or QR Code");
-                intentIntegrator.setOrientationLocked(true);
-                intentIntegrator.initiateScan();
-                break;
             case R.id.imgCalendar:
                 showDatePickerDlg();
                 break;
             case R.id.linPoint:
-                linUnit.setAlpha(0.5f);
+                linUnit.setAlpha(0.3f);
                 imgBalerinaUnit.setVisibility(View.INVISIBLE);
 
                 PersonalData.getInstance().setDietMode(DietMode.POINT);
@@ -275,7 +249,7 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 initMeal(mSelectedDate);
                 break;
             case R.id.linUnit:
-                linPoint.setAlpha(0.5f);
+                linPoint.setAlpha(0.3f);
                 imgBalerinaPoint.setVisibility(View.INVISIBLE);
 
                 PersonalData.getInstance().setDietMode(DietMode.UNIT);
@@ -566,7 +540,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 });
     }
     private void addEventListener() {
-        barcode.setOnClickListener(this);
         imgCalendar.setOnClickListener(this);
 
         linPoint.setOnClickListener(this);
@@ -723,6 +696,7 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         txtIDW.setText(String.format(Locale.US, "%.1f ~ %.1f kg", idw, idw_max));
         txtBMI.setText(String.format(Locale.US, "%.1f", bmi));
         txtBMIText.setText(bmiState);
+        txtGoalWeight.setText(String.format(Locale.US, "%.1f kg", PersonalData.getInstance().getGoal_weight()));
         txtCurrentWeight.setText(String.format(Locale.US, "%.1f", PersonalData.getInstance().getWeight()));
 
         txtInitialWeight.setText(String.format(Locale.US, "%.1f kg", PersonalData.getInstance().getInitial_weight()));
@@ -990,15 +964,17 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                     @SuppressLint({"SetTextI18n", "DefaultLocale"})
                     @Override
                     public void onResponse(Call<Wrappers.Collection<Meal>> call, Response<Wrappers.Collection<Meal>> response) {
-                        List<Meal> meals = response.body().data;
-                        initMealFormat();
-                        mealBoxFormat(meals);
-                        pieChartFormat();
-                        warning_format();
-                        fruit_format();
-                        unit_point_format();
-                        initWater();
-                        mProgressDialog.dismiss();
+                        if (response.body()!=null) {
+                            List<Meal> meals = response.body().data;
+                            initMealFormat();
+                            mealBoxFormat(meals);
+                            pieChartFormat();
+                            warning_format();
+                            fruit_format();
+                            unit_point_format();
+                            initWater();
+                            mProgressDialog.dismiss();
+                        }
                     }
 
                     @Override
@@ -1238,11 +1214,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 txtPointBreakfast.setText(String.format(Locale.US, "%.1f", Global.morning_units)+" units");
             }
 
-            txtBreakfastCarbon.setText("Πρω : "+String.format("%d", Math.round(Global.morning_carbon * 4/Global.morning_total*100))+"%");
-            txtBreakfastProtein.setText("Υδατ : "+String.format("%d", Math.round(Global.morning_protein * 4/Global.morning_total*100))+"%");
+            txtBreakfastCarbon.setText("Υδατ : "+String.format("%d", Math.round(Global.morning_carbon * 4/Global.morning_total*100))+"%");
+            txtBreakfastProtein.setText("Πρω : "+String.format("%d", Math.round(Global.morning_protein * 4/Global.morning_total*100))+"%");
             txtBreakfastFat.setText("Λιπ : "+String.format("%d", Math.round(Global.morning_fat * 4/Global.morning_total*100))+"%");
-            txtBreakfastCarbonGram.setText("Πρω : "+String.format("%d", Math.round(Global.morning_carbon))+" g");
-            txtBreakfastProteinGram.setText("Υδατ : "+String.format("%d", Math.round(Global.morning_protein))+" g");
+            txtBreakfastCarbonGram.setText("Υδατ : "+String.format("%d", Math.round(Global.morning_carbon))+" g");
+            txtBreakfastProteinGram.setText("Πρω : "+String.format("%d", Math.round(Global.morning_protein))+" g");
             txtBreakfastFatGram.setText("Λιπ : "+String.format("%d", Math.round(Global.morning_fat))+" g");
             if (Global.bCarbon && Global.bProtein && Global.bFat) {
                 txtRequirementBreakfast.setText("Μπράβο!  Έχετε πετύχει τον ιδανικό συνδυασμό Υδατ/Πρωτ/VitC στο γεύμα σας.");
@@ -1258,11 +1234,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 txtPointLunch.setText(String.format(Locale.US, "%.1f", Global.lunch_units)+" units");
             }
 
-            txtLunchCarbon.setText("Πρω : "+String.format("%d", Math.round(Global.lunch_carbon * 4/Global.lunch_total*100))+"%");
-            txtLunchProtein.setText("Υδατ : "+String.format("%d", Math.round(Global.lunch_protein * 4/Global.lunch_total*100))+"%");
+            txtLunchCarbon.setText("Υδατ : "+String.format("%d", Math.round(Global.lunch_carbon * 4/Global.lunch_total*100))+"%");
+            txtLunchProtein.setText("Πρω : "+String.format("%d", Math.round(Global.lunch_protein * 4/Global.lunch_total*100))+"%");
             txtLunchFat.setText("Λιπ : "+String.format("%d", Math.round(Global.lunch_fat * 4/Global.lunch_total*100))+"%");
-            txtLunchCarbonGram.setText("Πρω : "+String.format("%d", Math.round(Global.lunch_carbon))+" g");
-            txtLunchProteinGram.setText("Υδατ : "+String.format("%d", Math.round(Global.lunch_protein))+" g");
+            txtLunchCarbonGram.setText("Υδατ : "+String.format("%d", Math.round(Global.lunch_carbon))+" g");
+            txtLunchProteinGram.setText("Πρω : "+String.format("%d", Math.round(Global.lunch_protein))+" g");
             txtLunchFatGram.setText("Λιπ : "+String.format("%d", Math.round(Global.lunch_fat))+" g");
             if (Global.lCarbon && Global.lProtein && Global.lFat) {
                 txtRequirementLunch.setText("Μπράβο!  Έχετε πετύχει τον ιδανικό συνδυασμό Υδατ/Πρωτ/VitC στο γεύμα σας.");
@@ -1278,11 +1254,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 txtPointDinner.setText(String.format(Locale.US, "%.1f", Global.dinner_units)+" units");
             }
 
-            txtDinnerCarbon.setText("Πρω : "+String.format("%d", Math.round(Global.dinner_carbon * 4/Global.dinner_total*100))+"%");
-            txtDinnerProtein.setText("Υδατ : "+String.format("%d", Math.round(Global.dinner_protein * 4/Global.dinner_total*100))+"%");
+            txtDinnerCarbon.setText("Υδατ : "+String.format("%d", Math.round(Global.dinner_carbon * 4/Global.dinner_total*100))+"%");
+            txtDinnerProtein.setText("Πρω : "+String.format("%d", Math.round(Global.dinner_protein * 4/Global.dinner_total*100))+"%");
             txtDinnerFat.setText("Λιπ : "+String.format("%d", Math.round(Global.dinner_fat * 4/Global.dinner_total*100))+"%");
-            txtDinnerCarbonGram.setText("Πρω : "+String.format("%d", Math.round(Global.dinner_carbon))+" g");
-            txtDinnerProteinGram.setText("Υδατ : "+String.format("%d", Math.round(Global.dinner_protein))+" g");
+            txtDinnerCarbonGram.setText("Υδατ : "+String.format("%d", Math.round(Global.dinner_carbon))+" g");
+            txtDinnerProteinGram.setText("Πρω : "+String.format("%d", Math.round(Global.dinner_protein))+" g");
             txtDinnerFatGram.setText("Λιπ : "+String.format("%d", Math.round(Global.dinner_fat))+" g");
             if (Global.dCarbon && Global.dProtein && Global.dFat) {
                 txtRequirementDinner.setText("Μπράβο!  Έχετε πετύχει τον ιδανικό συνδυασμό Υδατ/Πρωτ/VitC στο γεύμα σας.");
@@ -1298,11 +1274,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 txtPointBreakfastSnack.setText(String.format(Locale.US, "%.1f", Global.snack_morning_units)+" units");
             }
 
-            txtBreakfastSnackCarbon.setText("Πρω : "+String.format("%d", Math.round(Global.snack_morning_carbon * 4/Global.snack_morning_total*100))+"%");
-            txtBreakfastSnackProtein.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_morning_protein * 4/Global.snack_morning_total*100))+"%");
+            txtBreakfastSnackCarbon.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_morning_carbon * 4/Global.snack_morning_total*100))+"%");
+            txtBreakfastSnackProtein.setText("Πρω : "+String.format("%d", Math.round(Global.snack_morning_protein * 4/Global.snack_morning_total*100))+"%");
             txtBreakfastSnackFat.setText("Λιπ : "+String.format("%d", Math.round(Global.snack_morning_fat * 4/Global.snack_morning_total*100))+"%");
-            txtBreakfastSnackCarbonGram.setText("Πρω : "+String.format("%d", Math.round(Global.snack_morning_carbon))+" g");
-            txtBreakfastSnackProteinGram.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_morning_protein))+" g");
+            txtBreakfastSnackCarbonGram.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_morning_carbon))+" g");
+            txtBreakfastSnackProteinGram.setText("Πρω : "+String.format("%d", Math.round(Global.snack_morning_protein))+" g");
             txtBreakfastSnackFatGram.setText("Λιπ : "+String.format("%d", Math.round(Global.snack_morning_fat))+" g");
         }
         if (lus) {
@@ -1312,11 +1288,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 txtPointLunchSnack.setText(String.format(Locale.US, "%.1f", Global.snack_lunch_units)+" units");
             }
 
-            txtLunchSnackCarbon.setText("Πρω : "+String.format("%d", Math.round(Global.snack_lunch_carbon * 4/Global.snack_lunch_total*100))+"%");
-            txtLunchSnackProtein.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_lunch_protein * 4/Global.snack_lunch_total*100))+"%");
+            txtLunchSnackCarbon.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_lunch_carbon * 4/Global.snack_lunch_total*100))+"%");
+            txtLunchSnackProtein.setText("Πρω : "+String.format("%d", Math.round(Global.snack_lunch_protein * 4/Global.snack_lunch_total*100))+"%");
             txtLunchSnackFat.setText("Λιπ : "+String.format("%d", Math.round(Global.snack_lunch_fat * 4/Global.snack_lunch_total*100))+"%");
-            txtLunchSnackCarbonGram.setText("Πρω : "+String.format("%d", Math.round(Global.snack_lunch_carbon))+" g");
-            txtLunchSnackProteinGram.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_lunch_protein))+" g");
+            txtLunchSnackCarbonGram.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_lunch_carbon))+" g");
+            txtLunchSnackProteinGram.setText("Πρω : "+String.format("%d", Math.round(Global.snack_lunch_protein))+" g");
             txtLunchSnackFatGram.setText("Λιπ : "+String.format("%d", Math.round(Global.snack_lunch_fat))+" g");
         }
         if (dis) {
@@ -1326,11 +1302,11 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
                 txtPointDinnerSnack.setText(String.format(Locale.US, "%.1f", Global.snack_dinner_units)+" units");
             }
 
-            txtDinnerSnackCarbon.setText("Πρω : "+String.format("%d", Math.round(Global.snack_dinner_carbon * 4/Global.snack_dinner_total*100))+"%");
-            txtDinnerSnackProtein.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_dinner_protein * 4/Global.snack_dinner_total*100))+"%");
+            txtDinnerSnackCarbon.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_dinner_carbon * 4/Global.snack_dinner_total*100))+"%");
+            txtDinnerSnackProtein.setText("Πρω : "+String.format("%d", Math.round(Global.snack_dinner_protein * 4/Global.snack_dinner_total*100))+"%");
             txtDinnerSnackFat.setText("Λιπ : "+String.format("%d", Math.round(Global.snack_dinner_fat * 4/Global.snack_dinner_total*100))+"%");
-            txtDinnerSnackCarbonGram.setText("Πρω : "+String.format("%d", Math.round(Global.snack_dinner_carbon))+" g");
-            txtDinnerSnackProteinGram.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_dinner_protein))+" g");
+            txtDinnerSnackCarbonGram.setText("Υδατ : "+String.format("%d", Math.round(Global.snack_dinner_carbon))+" g");
+            txtDinnerSnackProteinGram.setText("Πρω : "+String.format("%d", Math.round(Global.snack_dinner_protein))+" g");
             txtDinnerSnackFatGram.setText("Λιπ : "+String.format("%d", Math.round(Global.snack_dinner_fat))+" g");
         }
     }
@@ -1422,7 +1398,6 @@ public class DailyCaleandarActivity extends AppCompatActivity implements DatePic
         setSettings(mSelectedDate);
     }
     public void initView() {
-        barcode = findViewById(R.id.barcode);
         txtDate = findViewById(R.id.txtDate);
         txtWeek = findViewById(R.id.txtWeek);
         imgCalendar = findViewById(R.id.imgCalendar);

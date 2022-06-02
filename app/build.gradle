@@ -21,7 +21,7 @@ android {
         applicationId "com.diet.trinity"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 5
+        versionCode 9
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -70,12 +70,12 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //ion
-    implementation 'com.koushikdutta.ion:ion:2.+'
+    implementation 'com.koushikdutta.ion:ion:2.2.1'
     //round image
     implementation 'de.hdodenhof:circleimageview:3.0.0' //round image
     //image picker
-    implementation 'com.github.esafirm.android-image-picker:imagepicker:1.13.0'
-    implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.13.0'
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
+    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.5'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
 
     //date picker
@@ -87,7 +87,7 @@ dependencies {
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
 
     //accordion control
-    implementation 'it.sysdata.mobile:fancyaccordionview:1.0.1'
+    implementation 'com.github.SysdataSpA:FancyAccordionView:1.0.0'
 
     //Line chart
     implementation 'com.jjoe64:graphview:4.2.2'

@@ -40,6 +40,10 @@ public class PaymentDetails extends AppCompatActivity {
         {
             type = 2;
         }
+        else if(paymentAmount.equals("89.99"))
+        {
+            type = 3;
+        }
 
         if (type != 0) {
             REST rest = MainApplication.getContainer().get(REST.class);

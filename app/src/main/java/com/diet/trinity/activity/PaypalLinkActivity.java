@@ -31,12 +31,12 @@ import java.util.List;
 
 public class PaypalLinkActivity extends AppCompatActivity {
 
-    ImageView btnPayNow_bronze,btnPayNow_gold;
+    ImageView btnPayNow_bronze,btnPayNow_gold, btnPayNow_gold_plus;
     EditText edtAmount;
     String amount = "";
     private BillingClient billingClient;
     private SkuDetails skuDetails;
-    private SkuDetails gold, bronze;
+    private SkuDetails gold, bronze, gold_plus;
     private PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
         @Override
         public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
@@ -63,6 +63,7 @@ public class PaypalLinkActivity extends AppCompatActivity {
 
         btnPayNow_bronze = findViewById(R.id.BronzePayNow);
         btnPayNow_gold = findViewById(R.id.GoldPayNow);
+        btnPayNow_gold_plus = findViewById(R.id.GoldPlusPayNow);
         edtAmount = findViewById(R.id.edtAmount);
 
         btnPayNow_bronze.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +86,19 @@ public class PaypalLinkActivity extends AppCompatActivity {
                 amount = "49.99";
                 billingFlowParams = BillingFlowParams.newBuilder()
                         .setSkuDetails(gold)
+                        .build();
+                int response = billingClient.launchBillingFlow(PaypalLinkActivity.this, billingFlowParams).getResponseCode();
+                Log.e("tag", response+"");
+            }
+        });
+
+        btnPayNow_gold_plus.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                amount = "89.99";
+                billingFlowParams = BillingFlowParams.newBuilder()
+                        .setSkuDetails(gold_plus)
                         .build();
                 int response = billingClient.launchBillingFlow(PaypalLinkActivity.this, billingFlowParams).getResponseCode();
                 Log.e("tag", response+"");
@@ -122,6 +136,7 @@ public class PaypalLinkActivity extends AppCompatActivity {
         List<String> skuList = new ArrayList<>();
         skuList.add("1vtr1n1t_4");
         skuList.add("2vtr1n1t_4");
+        skuList.add("3vtr1n1t_4");
         SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
         params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
 
@@ -148,6 +163,8 @@ public class PaypalLinkActivity extends AppCompatActivity {
             bronze = skuDetails;
         } else if (skuDetails.getSku().equals("2vtr1n1t_4")) {
             gold = skuDetails;
+        } else if (skuDetails.getSku().equals("3vtr1n1t_4")) {
+            gold_plus = skuDetails;
         }
     }
 
