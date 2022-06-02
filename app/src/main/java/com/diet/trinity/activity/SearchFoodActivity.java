@@ -880,9 +880,9 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(holder.rm_btn.getContext());
-                    alert.setTitle("Delete");
-                    alert.setMessage("Are you sure you want to delete?");
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    alert.setTitle("Διαγράφω");
+                    alert.setMessage("Θες να το διαγράψεις?\n");
+                    alert.setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -908,7 +908,7 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
                         }
                     });
 
-                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton("Όχι", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -966,9 +966,9 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(holder.rm_btn.getContext());
-                    alert.setTitle("Delete");
-                    alert.setMessage("Are you sure you want to delete?");
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    alert.setTitle("Διαγράφω");
+                    alert.setMessage("Θες να το διαγράψεις?\n");
+                    alert.setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -994,7 +994,7 @@ public class SearchFoodActivity extends AppCompatActivity implements SearchView.
                         }
                     });
 
-                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton("Όχι", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

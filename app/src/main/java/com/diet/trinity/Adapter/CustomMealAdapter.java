@@ -87,9 +87,9 @@ public class CustomMealAdapter extends BaseAdapter  {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(holder.id_btn.getContext());
-                alert.setTitle("Delete");
-                alert.setMessage("Are you sure you want to delete?");
-                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                alert.setTitle("Διαγράφω");
+                alert.setMessage("Θες να το διαγράψεις?");
+                alert.setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -115,7 +115,7 @@ public class CustomMealAdapter extends BaseAdapter  {
                     }
                 });
 
-                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton("Όχι", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
